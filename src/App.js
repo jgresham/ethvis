@@ -10,6 +10,7 @@ const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ""
 const THEME = DARK_THEME
 const THEME_LOCAL_STORAGE_KEY = "blueprint-docs-theme"
+const NODE_CLIENT_ENDPOINT = "ws://localhost:8546"
 
 function App() {
   const [sWeb3, setWeb3] = useState(null)
@@ -18,10 +19,14 @@ function App() {
   const [sLatestBlock, setLatestBlock] = useState(null)
   const [sLatestBlockDateTime, setLatestBlockDateTime] = useState(null)
   const [sLogs, setLogs] = useState([])
+  const [sNetworkInfo, setNetworkInfo] = useState(null)
+  const [sNetworkInfoDateTime, setNetworkInfoDateTime] = useState(null)
+  const [sNodeInfo, setNodeInfo] = useState(null)
+  const [sNodeInfoDateTime, setNodeInfoDateTime] = useState(null)
 
   useEffect(()=> {
     // const ws = new socket.client()
-    const web3 = new Web3('ws://localhost:8546');
+    const web3 = new Web3(NODE_CLIENT_ENDPOINT);
     // web3.eth.subscribe('logs', {}, (...log) => {
     //   console.log("new log: " , log)
     //   // setLogs(sLogs.concat([log]))
@@ -62,6 +67,8 @@ function App() {
     if(sWeb3) {
       getGasPrice()
       getLatestBlock()
+      getNetworkInfo()
+      getNodeInfo()
       sWeb3.eth.isSyncing().then(console.log)
     }
   }, [sWeb3])
@@ -88,17 +95,41 @@ function App() {
     await wait(10000)
     getLatestBlock()
   }
+  const getNetworkInfo = async () => {
+    if(sWeb3?.eth) {
+      const peerCount = await sWeb3.eth.net.getPeerCount()
+      const isListeningForPeers = await sWeb3.eth.net.isListening()
+      const networkId = await sWeb3.eth.net.getId()
+      const networkType = await sWeb3.eth.net.getNetworkType()
+      setNetworkInfo({peerCount, isListeningForPeers, networkId, networkType})
+      setNetworkInfoDateTime(new Date())
+    }
+    await wait(10000)
+    getNetworkInfo()
+  }
+  const getNodeInfo = async () => {
+    if(sWeb3?.eth) {
+      const nodeInfo = await sWeb3.eth.getNodeInfo()
+      setNodeInfo(nodeInfo)
+      setNodeInfoDateTime(new Date())
+    }
+    await wait(10000)
+    getNodeInfo()
+  }
   return (
     <div className={"App "+ THEME}>
         
         <div className={THEME}>
+          <p>
+            <strong>node client:</strong> {sNodeInfo}
+            <strong> RPC endpoint:</strong> {NODE_CLIENT_ENDPOINT}
+          </p>
         <table class="bp3-html-table .modifier">
         <thead>
           <tr>
             <th>Stat</th>
             <th>Value</th>
             <th>Updated at</th>
-            <th>Description</th>
           </tr>
         </thead>
         <tbody>
@@ -106,23 +137,20 @@ function App() {
             <td>Gas price</td>
             <td>{sGasPrice}</td>
             <td>{sGasPriceDateTime ? sGasPriceDateTime.toString(): null}</td>
-            <td>Gas price</td>
           </tr>
           <tr>
             <td>Latest block</td>
             <td>{sLatestBlock}</td>
             <td>{sLatestBlockDateTime ? sLatestBlockDateTime.toString(): null}</td>
-            <td>Latest block</td>
           </tr>
           <tr>
-            <td>Plottable</td>
-            <td>Composable charting library built on top of D3</td>
-            <td>SVG, TypeScript, D3</td>
-            <td>737</td>
+            <td>Network Info</td>
+            <td>{JSON.stringify(sNetworkInfo)}</td>
+            <td>{sNetworkInfoDateTime ? sNetworkInfoDateTime.toString(): null}</td>
           </tr>
         </tbody>
       </table>
-      <div>
+      {/* <div>
                 <Button onClick={()=>{}}>
                     {"Show"} build logs
                 </Button>
@@ -131,7 +159,7 @@ function App() {
                         Dummy text.
                     </Pre>
                 </Collapse>
-            </div>
+            </div> */}
     </div>
     </div>
   );
