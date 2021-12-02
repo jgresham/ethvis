@@ -20,19 +20,19 @@ const NODE_CLIENT_CL_EVENTS_ENDPOINT = NODE_CLIENT_CL_ENDPOINT + "/eth/v1/events
 let eventSource_CL
 
 function App() {
-  const [sWeb3, setWeb3] = useState(null)
-  const [sGasPrice, setGasPrice] = useState(null)
-  const [sGasPriceDateTime, setGasPriceDateTime] = useState(null)
-  const [sLatestBlock, setLatestBlock] = useState(null)
-  const [sLatestBlockDateTime, setLatestBlockDateTime] = useState(null)
+  const [sWeb3, setWeb3] = useState<Web3>()
+  const [sGasPrice, setGasPrice] = useState<number>()
+  const [sGasPriceDateTime, setGasPriceDateTime] = useState<Date>()
+  const [sLatestBlock, setLatestBlock] = useState<number>()
+  const [sLatestBlockDateTime, setLatestBlockDateTime] = useState<Date>()
   const [sLogs, setLogs] = useState([])
-  const [sNetworkInfo, setNetworkInfo] = useState(null)
-  const [sNetworkInfoDateTime, setNetworkInfoDateTime] = useState(null)
-  const [sNodeInfo, setNodeInfo] = useState(null)
-  const [sConsensusNodeInfo, setConsensusNodeInfo] = useState(null)
-  const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState(null)
-  const [sNodeInfoDateTime, setNodeInfoDateTime] = useState(null)
-  const [sIsMergeComplete, setIsMergeComplete] = useState(null)
+  const [sNetworkInfo, setNetworkInfo] = useState<any>()
+  const [sNetworkInfoDateTime, setNetworkInfoDateTime] = useState<Date>()
+  const [sNodeInfo, setNodeInfo] = useState<string>()
+  const [sConsensusNodeInfo, setConsensusNodeInfo] = useState<string>()
+  const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState<any>()
+  const [sNodeInfoDateTime, setNodeInfoDateTime] = useState<Date>()
+  const [sIsMergeComplete, setIsMergeComplete] = useState<boolean>()
 
   useEffect(()=> {
     eventSource_CL = new EventSource(NODE_CLIENT_CL_EVENTS_ENDPOINT)
@@ -42,15 +42,15 @@ function App() {
     getConsensusNodeInfo()
     getConsensusNodeConfigSpec()
     // const ws = new socket.client()
-    const web3 = new Web3(NODE_CLIENT_EL_ENDPOINT);
+    const web3: Web3 = new Web3(NODE_CLIENT_EL_ENDPOINT);
     // web3.eth.subscribe('logs', {}, (...log) => {
     //   console.log("new log: " , log)
     //   // setLogs(sLogs.concat([log]))
     // })
-    web3.eth.subscribe('newBlockHeaders', async (...blockHeader) => {
+    web3.eth.subscribe('newBlockHeaders', async (error, blockHeader) => {
       console.log("new block header: " , blockHeader)
       const blockNumber = blockHeader.number
-      if(sWeb3?.eth) {
+      if(sWeb3 && sWeb3.eth) {
         const latestBlock = await sWeb3.eth.getBlock(blockNumber)
         console.log('latest block from subscribe: ', latestBlock)
       }
@@ -121,7 +121,7 @@ function App() {
   const getGasPrice = async () => {
     console.log('waiting for gas price')
     if(sWeb3?.eth) {
-      const currGasPrice = await sWeb3.eth.getGasPrice() / 1000000000
+      const currGasPrice = parseInt(await sWeb3.eth.getGasPrice()) / 1000000000
       console.log('gas price received: ', currGasPrice)
       setGasPrice(currGasPrice)
       setGasPriceDateTime(new Date())
@@ -135,7 +135,8 @@ function App() {
       const latestBlock = await sWeb3.eth.getBlock("latest")
       console.log('latest block received: ', latestBlock)
       setLatestBlock(latestBlock.number)
-      setLatestBlockDateTime(new Date(latestBlock.timestamp * 1000))
+      const latestBlockTimestamp: number = typeof latestBlock.timestamp === "string" ? parseInt(latestBlock.timestamp) : latestBlock.timestamp
+      setLatestBlockDateTime(new Date(latestBlockTimestamp * 1000))
     }
     await wait(10000)
     getLatestBlock()
@@ -186,7 +187,7 @@ function App() {
             }</>)}
           </div>
           <p>
-            Merged at Terminal Total Difficulty: {sConsensusNodeConfigSpec.data.TERMINAL_TOTAL_DIFFICULTY}
+            Merged at Terminal Total Difficulty: {sConsensusNodeConfigSpec?.data?.TERMINAL_TOTAL_DIFFICULTY}
           </p>
         <table className="bp3-html-table .modifier">
         <thead>
