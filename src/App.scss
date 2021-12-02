@@ -1,12 +1,13 @@
-@import "~normalize.css";
-@import "~@blueprintjs/core/lib/css/blueprint.css";
-@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "~@blueprintjs/core/src/common/variables";
+@import "~@fontsource/open-sans/index.css";
 
 $dark-content-background-color: $dark-gray4;
 
-.App {
-	&.#{$ns}-dark {
-		background-color: $dark-content-background-color;
-	}
+.#{$ns}-dark {
+	background-color: $dark-content-background-color;
+}
+
+body {
+  font-family: "Open Sans";
+	word-break: break-all;
 }

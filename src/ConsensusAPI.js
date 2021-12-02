@@ -10,3 +10,14 @@ export const getNodeInfo = async () => {
 	})
 	return response.json()
 }
+
+export const getNodeConfigSpec = async () => {
+	console.log("getting consensus node config spec")
+	const response = await fetch(NODE_CLIENT_CL_ENDPOINT + "/eth/v1/config/spec", {
+		headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    }
+	})
+	return response.json()
+}

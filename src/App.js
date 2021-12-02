@@ -7,6 +7,7 @@ import wait from 'wait'
 import { Button, Collapse, Pre, Classes } from "@blueprintjs/core";
 import * as ConsensusAPI from "./ConsensusAPI"
 import { isMergeCompleted } from './isMergeCompleted';
+import "@fontsource/open-sans"
 
 const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ""
@@ -29,6 +30,7 @@ function App() {
   const [sNetworkInfoDateTime, setNetworkInfoDateTime] = useState(null)
   const [sNodeInfo, setNodeInfo] = useState(null)
   const [sConsensusNodeInfo, setConsensusNodeInfo] = useState(null)
+  const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState(null)
   const [sNodeInfoDateTime, setNodeInfoDateTime] = useState(null)
   const [sIsMergeComplete, setIsMergeComplete] = useState(null)
 
@@ -38,6 +40,7 @@ function App() {
       console.log("CL event: ", event)
     }
     getConsensusNodeInfo()
+    getConsensusNodeConfigSpec()
     // const ws = new socket.client()
     const web3 = new Web3(NODE_CLIENT_EL_ENDPOINT);
     // web3.eth.subscribe('logs', {}, (...log) => {
@@ -104,6 +107,12 @@ function App() {
     }
   }
 
+  const getConsensusNodeConfigSpec = async () => {
+    console.log("appjs getConsensusNodeInfo")
+    const nodeInfo = await ConsensusAPI.getNodeConfigSpec()
+    setConsensusNodeConfigSpec(nodeInfo)
+  }
+
   const getConsensusNodeInfo = async () => {
     console.log("appjs getConsensusNodeInfo")
     const nodeInfo = await ConsensusAPI.getNodeInfo()
@@ -155,7 +164,7 @@ function App() {
     getNodeInfo()
   }
   return (
-    <div className={"App "+ THEME}>
+    <div className={"App"}>
         
         <div className={THEME}>
           <p>
@@ -176,6 +185,9 @@ function App() {
             </>
             }</>)}
           </div>
+          <p>
+            Merged at Terminal Total Difficulty: {sConsensusNodeConfigSpec.data.TERMINAL_TOTAL_DIFFICULTY}
+          </p>
         <table className="bp3-html-table .modifier">
         <thead>
           <tr>
