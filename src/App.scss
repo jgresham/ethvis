@@ -1,13 +1,13 @@
-@import "~@blueprintjs/core/src/common/variables";
-@import "~@fontsource/open-sans/index.css";
+@import '~@blueprintjs/core/src/common/variables';
+@import '~@fontsource/open-sans/index.css';
 
 $dark-content-background-color: $dark-gray4;
 
 .#{$ns}-dark {
-	background-color: $dark-content-background-color;
+  background-color: $dark-content-background-color;
 }
 
 body {
-  font-family: "Open Sans";
-	word-break: break-all;
+  font-family: 'Open Sans';
+  word-break: break-all;
 }
