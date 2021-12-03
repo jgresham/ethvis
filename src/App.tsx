@@ -9,10 +9,10 @@ import Clients from './Clients'
 import '@fontsource/open-sans'
 import ExecutionClientTab from './ExecutionClientTab'
 import Header from './Header'
+import MainContentTabs from './MainContentTabs'
 
 const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ''
-const THEME = LIGHT_THEME
 const THEME_LOCAL_STORAGE_KEY = 'blueprint-docs-theme'
 const NODE_CLIENT_EL_ENDPOINT = 'ws://localhost:8546'
 // const NODE_CLIENT_EL_ENDPOINT = "http://localhost:8545"
@@ -26,11 +26,12 @@ export default function App() {
 
   return (
     <div className={'App'}>
-      <div className={sTheme}>
+      <div className={sTheme} style={{ padding: 10, height: '100vh', width: '100vw' }}>
         <Header onToggleTheme={() => (sTheme === DARK_THEME ? setTheme(LIGHT_THEME) : setTheme(DARK_THEME))} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
-        <Merge executionWS={executionWS} />
-        <ExecutionClientTab executionWS={executionWS} />
+        <MainContentTabs />
+        {/* <Merge executionWS={executionWS} /> */}
+        {/* <ExecutionClientTab executionWS={executionWS} /> */}
       </div>
     </div>
   )

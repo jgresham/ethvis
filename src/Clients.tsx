@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import wait from 'wait'
 import ClientConnectionError from './ClientConnectionError'
+import { Tag, Intent } from '@blueprintjs/core'
 
 interface ClientsProps {
   executionWS: any
@@ -51,9 +52,11 @@ export default function Clients(props: ClientsProps) {
   return (
     <div>
       <p>
-        <strong>Execution client:</strong> {sNodeInfo} isSyncing:{' '}
-        {sIsEcSyncing !== undefined && sIsEcSyncing.toString()}
+        <strong>Execution client:</strong> {sNodeInfo}{' '}
+        {!sIsEcConnected && <Tag intent={Intent.DANGER}>Not connected</Tag>}
+        {/* isSyncing:{' '} {sIsEcSyncing !== undefined && sIsEcSyncing.toString()} */}
         <strong>Consensus client:</strong> {sConsensusNodeInfo}
+        {!sIsCcConnected && <Tag intent={Intent.DANGER}>Not connected</Tag>}
       </p>
       {(!sIsCcConnected || !sIsEcConnected) && <ClientConnectionError />}
     </div>
