@@ -29,12 +29,12 @@ class ExecutionWS {
 
   isSyncing = async () => {
     console.log('ExecutionWS isSyncing()')
-	  if (this.web3?.eth) {
-		  try {
-			return await this.web3.eth.isSyncing()
-		  } catch (e) {
-			  console.error(e)
-		}
+    if (this.web3?.eth) {
+      try {
+        return await this.web3.eth.isSyncing()
+      } catch (e) {
+        console.error(e)
+      }
     }
     return false
   }

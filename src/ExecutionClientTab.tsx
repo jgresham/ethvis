@@ -28,7 +28,7 @@ export default function ExecutionClientTab(props: ClientsProps) {
   }
   const getLatestBlock = async () => {
     console.log('waiting for latest block')
-    let latestBlock = await props.executionWS.getLatestBlock()
+    const latestBlock = await props.executionWS.getLatestBlock()
     if (latestBlock?.number) {
       setLatestBlock(latestBlock.number)
       const latestBlockTimestamp: number =

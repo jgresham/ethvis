@@ -8,10 +8,11 @@ import Merge from './Merge'
 import Clients from './Clients'
 import '@fontsource/open-sans'
 import ExecutionClientTab from './ExecutionClientTab'
+import Header from './Header'
 
 const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ''
-const THEME = DARK_THEME
+const THEME = LIGHT_THEME
 const THEME_LOCAL_STORAGE_KEY = 'blueprint-docs-theme'
 const NODE_CLIENT_EL_ENDPOINT = 'ws://localhost:8546'
 // const NODE_CLIENT_EL_ENDPOINT = "http://localhost:8545"
@@ -21,9 +22,12 @@ const executionWS: ExecutionWS = new ExecutionWS(NODE_CLIENT_EL_ENDPOINT)
 const consensusAPI: ConsensusAPI = new ConsensusAPI(NODE_CLIENT_CL_ENDPOINT)
 
 export default function App() {
+  const [sTheme, setTheme] = useState<string>(DARK_THEME)
+
   return (
     <div className={'App'}>
-      <div className={THEME}>
+      <div className={sTheme}>
+        <Header onToggleTheme={() => (sTheme === DARK_THEME ? setTheme(LIGHT_THEME) : setTheme(DARK_THEME))} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
         <Merge executionWS={executionWS} />
         <ExecutionClientTab executionWS={executionWS} />
