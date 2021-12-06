@@ -9783,6 +9783,7 @@ __metadata:
     node-sass: ^6.0.1
     normalize.css: ^8.0.1
     prettier: 2.5.0
+    prop-types: ^15.7.2
     react: ^17.0.2
     react-dom: ^17.0.2
     react-scripts: 4.0.3

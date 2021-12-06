@@ -7,7 +7,7 @@ import ConsensusAPI from './ConsensusAPI'
 import Merge from './Merge'
 import Clients from './Clients'
 import '@fontsource/open-sans'
-import ExecutionClientTab from './ExecutionClientTab'
+import ExecutionClientStats from './ExecutionClient/ExecutionClientStats'
 import Header from './Header'
 import MainContentTabs from './MainContentTabs'
 
@@ -29,7 +29,7 @@ export default function App() {
       <div className={sTheme} style={{ padding: 10, height: '100vh', width: '100vw' }}>
         <Header onToggleTheme={() => (sTheme === DARK_THEME ? setTheme(LIGHT_THEME) : setTheme(DARK_THEME))} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
-        <MainContentTabs />
+        <MainContentTabs executionWS={executionWS}/>
         {/* <Merge executionWS={executionWS} /> */}
         {/* <ExecutionClientTab executionWS={executionWS} /> */}
       </div>

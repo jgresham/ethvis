@@ -1,9 +1,11 @@
 import { Tab, Tabs, TabId } from '@blueprintjs/core'
 import { useEffect, useState } from 'react'
+import ExecutionClientNodeTab from './ExecutionClientNodeTab'
 
-// interface MainConentTabsProps {}
+interface ExecutionClientTabsProps {  executionWS: any
+}
 
-export default function ExecutionClientTabs() {
+export default function ExecutionClientTabs(props: ExecutionClientTabsProps) {
   const [sActiveTab, setActiveTab] = useState<TabId>('hm')
 
   return (
@@ -13,7 +15,7 @@ export default function ExecutionClientTabs() {
       onChange={(tabId: TabId) => setActiveTab(tabId)}
       vertical={true}
     >
-      <Tab id="hm" title="Node" panel={<div>node</div>} />
+      <Tab id="hm" title="Node" panel={<ExecutionClientNodeTab executionWS={props.executionWS}/>} />
       <Tab id="ec" title="Network" panel={<div>network</div>} />
       <Tab id="cc" title="Chain" panel={<div>chain</div>} />
     </Tabs>

@@ -90,6 +90,42 @@ class ExecutionWS {
       }
     }
   }
+
+  getProtocolVersion = async () => {
+    console.log('ExecutionWS getProtocolVersion()')
+    if (this.web3?.eth) {
+      try {
+        return await this.web3.eth.getProtocolVersion()
+      } catch (e) {
+        console.error(e)
+        throw e
+      }
+    }
+  }
+
+  getDefaultChain = async () => {
+    if (this.web3?.eth) {
+      try {
+        const nodeInfo = await this.web3.eth.defaultChain
+        console.log('nodeInfo: ', nodeInfo)
+        return nodeInfo
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  getChainId = async () => {
+    if (this.web3?.eth) {
+      try {
+        const nodeInfo = await this.web3.eth.getChainId()
+        console.log('nodeInfo: ', nodeInfo)
+        return nodeInfo
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
 }
 
 export default ExecutionWS

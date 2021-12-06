@@ -1,51 +1,56 @@
 import { useEffect, useState } from 'react'
-import wait from 'wait'
+import ChainId from '../InfoDialogs/ChainId'
 
+const REFRESH_CLIENT_DATA_INTERVAL = 5000
 interface ClientsProps {
   executionWS: any
 }
 
-export default function ExecutionClientTab(props: ClientsProps) {
+export default function ExecutionClientNodeTab(props: ClientsProps) {
   const [sGasPrice, setGasPrice] = useState<number>()
-  const [sGasPriceDateTime, setGasPriceDateTime] = useState<Date>()
   const [sLatestBlock, setLatestBlock] = useState<number>()
-  const [sLatestBlockDateTime, setLatestBlockDateTime] = useState<Date>()
   const [sNetworkInfo, setNetworkInfo] = useState<any>()
-  const [sNetworkInfoDateTime, setNetworkInfoDateTime] = useState<Date>()
+  const [sProtocolVersion, setProtocolVersion] = useState<string>()
+  const [sChainId, setChainId] = useState<string>()
 
   useEffect(() => {
-    getGasPrice()
-    getLatestBlock()
-    getNetworkInfo()
+    getProtocolVersion()
+    getChainId()
+      const interval = setInterval(()=> {
+        getGasPrice()
+        getLatestBlock()
+        getNetworkInfo()
+      }, REFRESH_CLIENT_DATA_INTERVAL)
+      return () => clearInterval(interval)
   }, [])
 
+  const getChainId = async () => {
+    try {
+        setChainId(await props.executionWS.getChainId())
+    } catch(e){
+      setProtocolVersion("unavailable")
+    }
+}
+
+  const getProtocolVersion = async () => {
+      try {
+        setProtocolVersion(await props.executionWS.getProtocolVersion())
+      } catch(e){
+        setProtocolVersion("unavailable")
+      }
+  }
   const getGasPrice = async () => {
-    console.log('waiting for gas price')
     setGasPrice(await props.executionWS.getGasPrice())
-    setGasPriceDateTime(new Date())
-    await wait(10000)
-    getGasPrice()
   }
   const getLatestBlock = async () => {
-    console.log('waiting for latest block')
     const latestBlock = await props.executionWS.getLatestBlock()
     if (latestBlock?.number) {
       setLatestBlock(latestBlock.number)
-      const latestBlockTimestamp: number =
-        typeof latestBlock.timestamp === 'string' ? parseInt(latestBlock.timestamp) : latestBlock.timestamp
-      setLatestBlockDateTime(new Date(latestBlockTimestamp * 1000))
     }
-
-    await wait(10000)
-    getLatestBlock()
   }
 
   const getNetworkInfo = async () => {
-    console.log('waiting for netowrk info')
     setNetworkInfo(await props.executionWS.getNetworkInfo())
-    setNetworkInfoDateTime(new Date())
-    await wait(10000)
-    getNetworkInfo()
   }
 
   return (
@@ -55,24 +60,28 @@ export default function ExecutionClientTab(props: ClientsProps) {
           <tr>
             <th>Stat</th>
             <th>Value</th>
-            <th>Updated at</th>
           </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>Ethereum protocol version</td>
+            <td>{sProtocolVersion}</td>
+          </tr>
+          <tr>
+            <td>Chain id <ChainId/></td>
+            <td>{sChainId}</td>
+          </tr>
           <tr>
             <td>Gas price</td>
             <td>{sGasPrice}</td>
-            <td>{sGasPriceDateTime ? sGasPriceDateTime.toString() : null}</td>
           </tr>
           <tr>
             <td>Latest block</td>
             <td>{sLatestBlock}</td>
-            <td>{sLatestBlockDateTime ? sLatestBlockDateTime.toString() : null}</td>
           </tr>
           <tr>
             <td>Network Info</td>
             <td>{JSON.stringify(sNetworkInfo)}</td>
-            <td>{sNetworkInfoDateTime ? sNetworkInfoDateTime.toString() : null}</td>
           </tr>
         </tbody>
       </table>
