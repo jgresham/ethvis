@@ -40,7 +40,6 @@ class ExecutionWS {
   }
 
   getLatestBlock = async () => {
-    console.log('ExecutionWS getLatestBlock()')
     if (this.web3?.eth) {
       try {
         return await this.web3.eth.getBlock('latest')
@@ -51,7 +50,6 @@ class ExecutionWS {
   }
 
   getNodeInfo = async () => {
-    console.log('trying to get nodeInfo')
     if (this.web3?.eth) {
       try {
         const nodeInfo = await this.web3.eth.getNodeInfo()
@@ -64,7 +62,6 @@ class ExecutionWS {
   }
 
   getGasPrice = async () => {
-    console.log('waiting for gas price')
     if (this.web3?.eth) {
       try {
         const currGasPrice = parseInt(await this.web3.eth.getGasPrice()) / 1000000000
@@ -85,6 +82,18 @@ class ExecutionWS {
         const networkId = await this.web3.eth.net.getId()
         const networkType = await this.web3.eth.net.getNetworkType()
         return { peerCount, isListeningForPeers, networkId, networkType }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  getNumOfPendingTransactions = async () => {
+    if (this.web3?.eth) {
+      try {
+        const nodeInfo = await this.web3.eth.getPendingTransactions()
+        console.log('getNumOfPendingTransactions: ', nodeInfo.length)
+        return nodeInfo.length
       } catch (e) {
         console.error(e)
       }
@@ -120,6 +129,43 @@ class ExecutionWS {
       try {
         const nodeInfo = await this.web3.eth.getChainId()
         console.log('nodeInfo: ', nodeInfo)
+        return nodeInfo
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  getDefaultHardfork = async () => {
+    if (this.web3?.eth) {
+      try {
+        const nodeInfo = await this.web3.eth.defaultHardfork
+        console.log('getDefaultHardfork: ', nodeInfo)
+        return nodeInfo
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  isMining = async () => {
+    console.log("a isMining()")
+    if (this.web3?.eth) {
+      try {
+        console.log("b isMining()")
+        const nodeInfo = await this.web3.eth.isMining()
+        console.log("return isMining()", nodeInfo)
+        return nodeInfo
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  getHashrate = async () => {
+    if (this.web3?.eth) {
+      try {
+        const nodeInfo = await this.web3.eth.getHashrate()
         return nodeInfo
       } catch (e) {
         console.error(e)

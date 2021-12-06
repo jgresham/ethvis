@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { convertToObject } from 'typescript'
 import ChainId from '../InfoDialogs/ChainId'
 
 const REFRESH_CLIENT_DATA_INTERVAL = 5000
@@ -12,14 +13,24 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
   const [sNetworkInfo, setNetworkInfo] = useState<any>()
   const [sProtocolVersion, setProtocolVersion] = useState<string>()
   const [sChainId, setChainId] = useState<string>()
+  const [sSyncing, setSyncing] = useState<boolean>()
+  const [sHashrate, setHashrate] = useState<number>()
+  const [sMining, setMining] = useState<boolean>()
+  const [sDefaultHardfork, setDefaultHardfork] = useState<string>()
+  const [sNumOfPendingTransactions, setNumOfPendingTransactions] = useState<number>()
 
   useEffect(() => {
     getProtocolVersion()
     getChainId()
+    getDefaultHardfork()
       const interval = setInterval(()=> {
         getGasPrice()
         getLatestBlock()
         getNetworkInfo()
+        getIsSyncing()
+        getIsMining()
+        getHashrate()
+        getNumOfPendingTransactions()
       }, REFRESH_CLIENT_DATA_INTERVAL)
       return () => clearInterval(interval)
   }, [])
@@ -31,6 +42,27 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
       setProtocolVersion("unavailable")
     }
 }
+const getDefaultHardfork = async () => {
+    const value = await props.executionWS.getDefaultHardfork()
+    console.log("hardfork value", value)
+    setDefaultHardfork(value)
+  }
+
+  const getNumOfPendingTransactions = async () => {
+    setNumOfPendingTransactions(await props.executionWS.getNumOfPendingTransactions())
+  }
+
+const getIsSyncing = async () => {
+    setSyncing(await props.executionWS.isSyncing())
+  }
+
+  const getIsMining = async () => {
+    setMining(await props.executionWS.isMining())
+  }
+
+  const getHashrate = async () => {
+    setHashrate(await props.executionWS.getHashrate())
+  }
 
   const getProtocolVersion = async () => {
       try {
@@ -82,6 +114,26 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
           <tr>
             <td>Network Info</td>
             <td>{JSON.stringify(sNetworkInfo)}</td>
+          </tr>
+          <tr>
+            <td>Hashrate</td>
+            <td>{sHashrate}</td>
+          </tr>
+          <tr>
+            <td>Syncing</td>
+            <td>{sSyncing + ""}</td>
+          </tr>
+          <tr>
+            <td>Mining</td>
+            <td>{sMining + ""}</td>
+          </tr>
+          <tr>
+            <td>Default hardfork</td>
+            <td>{JSON.stringify(sDefaultHardfork)}</td>
+          </tr>
+          <tr>
+            <td>Num of pending transactions</td>
+            <td>{sNumOfPendingTransactions}</td>
           </tr>
         </tbody>
       </table>
