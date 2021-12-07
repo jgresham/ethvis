@@ -10,6 +10,11 @@ class ExecutionWS {
     this.connectToClientWS()
   }
 
+  changeEndpoint = (endpoint: string) => {
+    this.endpoint = endpoint
+    this.connectToClientWS()
+  }
+
   connectToClientWS = async () => {
     // check if already connected
     try {
@@ -149,12 +154,12 @@ class ExecutionWS {
   }
 
   isMining = async () => {
-    console.log("a isMining()")
+    console.log('a isMining()')
     if (this.web3?.eth) {
       try {
-        console.log("b isMining()")
+        console.log('b isMining()')
         const nodeInfo = await this.web3.eth.isMining()
-        console.log("return isMining()", nodeInfo)
+        console.log('return isMining()', nodeInfo)
         return nodeInfo
       } catch (e) {
         console.error(e)

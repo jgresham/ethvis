@@ -7,29 +7,40 @@ import ConsensusAPI from './ConsensusAPI'
 import Merge from './Merge'
 import Clients from './Clients'
 import '@fontsource/open-sans'
-import ExecutionClientStats from './ExecutionClient/ExecutionClientStats'
 import Header from './Header'
 import MainContentTabs from './MainContentTabs'
+import Constants from './Constants.json'
 
 const DARK_THEME = Classes.DARK
-const LIGHT_THEME = ''
-const THEME_LOCAL_STORAGE_KEY = 'blueprint-docs-theme'
-const NODE_CLIENT_EL_ENDPOINT = 'ws://localhost:8546'
-// const NODE_CLIENT_EL_ENDPOINT = "http://localhost:8545"
-const NODE_CLIENT_CL_ENDPOINT = 'http://localhost:4000'
+const LIGHT_THEME = ' '
 
-const executionWS: ExecutionWS = new ExecutionWS(NODE_CLIENT_EL_ENDPOINT)
-const consensusAPI: ConsensusAPI = new ConsensusAPI(NODE_CLIENT_CL_ENDPOINT)
+export const executionWS: ExecutionWS = new ExecutionWS(Constants.default_execution_client_websocket_endpoint)
+export const consensusAPI: ConsensusAPI = new ConsensusAPI(Constants.default_beacon_client_http_endpoint)
+
+/** Return the current theme className. */
+export function getThemeLocalStorage(): string {
+  return localStorage.getItem(Constants.localstorage_darklight_theme_key) || DARK_THEME
+}
+/** Persist the current theme className in local storage. */
+export function setThemeLocalStorage(themeName: string) {
+  localStorage.setItem(Constants.localstorage_darklight_theme_key, themeName)
+}
 
 export default function App() {
-  const [sTheme, setTheme] = useState<string>(DARK_THEME)
+  const [sTheme, setTheme] = useState<string>(getThemeLocalStorage())
+
+  const onToggleTheme = () => {
+    const newTheme = sTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME
+    setThemeLocalStorage(newTheme)
+    setTheme(newTheme)
+  }
 
   return (
     <div className={'App'}>
       <div className={sTheme} style={{ padding: 10, height: '100vh', width: '100vw' }}>
-        <Header onToggleTheme={() => (sTheme === DARK_THEME ? setTheme(LIGHT_THEME) : setTheme(DARK_THEME))} />
+        <Header onToggleTheme={onToggleTheme} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
-        <MainContentTabs executionWS={executionWS}/>
+        <MainContentTabs executionWS={executionWS} />
         {/* <Merge executionWS={executionWS} /> */}
         {/* <ExecutionClientTab executionWS={executionWS} /> */}
       </div>

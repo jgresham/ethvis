@@ -6,6 +6,10 @@ class ConsensusAPI {
     this.endpoint = endpoint
   }
 
+  changeEndpoint = (endpoint: string) => {
+    this.endpoint = endpoint
+  }
+
   isConnected = async () => {
     if (this._isConnected === undefined) {
       await this.getNodeInfo()

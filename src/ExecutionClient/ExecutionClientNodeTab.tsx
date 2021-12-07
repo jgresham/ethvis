@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { convertToObject } from 'typescript'
 import ChainId from '../InfoDialogs/ChainId'
+import Constants from '../Constants.json'
 
-const REFRESH_CLIENT_DATA_INTERVAL = 5000
 interface ClientsProps {
   executionWS: any
 }
@@ -23,28 +22,28 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
     getProtocolVersion()
     getChainId()
     getDefaultHardfork()
-      const interval = setInterval(()=> {
-        getGasPrice()
-        getLatestBlock()
-        getNetworkInfo()
-        getIsSyncing()
-        getIsMining()
-        getHashrate()
-        getNumOfPendingTransactions()
-      }, REFRESH_CLIENT_DATA_INTERVAL)
-      return () => clearInterval(interval)
+    const interval = setInterval(() => {
+      getGasPrice()
+      getLatestBlock()
+      getNetworkInfo()
+      getIsSyncing()
+      getIsMining()
+      getHashrate()
+      getNumOfPendingTransactions()
+    }, Constants.default_refresh_client_data_interval)
+    return () => clearInterval(interval)
   }, [])
 
   const getChainId = async () => {
     try {
-        setChainId(await props.executionWS.getChainId())
-    } catch(e){
-      setProtocolVersion("unavailable")
+      setChainId(await props.executionWS.getChainId())
+    } catch (e) {
+      setProtocolVersion('unavailable')
     }
-}
-const getDefaultHardfork = async () => {
+  }
+  const getDefaultHardfork = async () => {
     const value = await props.executionWS.getDefaultHardfork()
-    console.log("hardfork value", value)
+    console.log('hardfork value', value)
     setDefaultHardfork(value)
   }
 
@@ -52,8 +51,10 @@ const getDefaultHardfork = async () => {
     setNumOfPendingTransactions(await props.executionWS.getNumOfPendingTransactions())
   }
 
-const getIsSyncing = async () => {
-    setSyncing(await props.executionWS.isSyncing())
+  const getIsSyncing = async () => {
+    const isSyncing = await props.executionWS.isSyncing()
+    console.log(isSyncing)
+    setSyncing(isSyncing)
   }
 
   const getIsMining = async () => {
@@ -65,11 +66,11 @@ const getIsSyncing = async () => {
   }
 
   const getProtocolVersion = async () => {
-      try {
-        setProtocolVersion(await props.executionWS.getProtocolVersion())
-      } catch(e){
-        setProtocolVersion("unavailable")
-      }
+    try {
+      setProtocolVersion(await props.executionWS.getProtocolVersion())
+    } catch (e) {
+      setProtocolVersion('unavailable')
+    }
   }
   const getGasPrice = async () => {
     setGasPrice(await props.executionWS.getGasPrice())
@@ -95,12 +96,14 @@ const getIsSyncing = async () => {
           </tr>
         </thead>
         <tbody>
-        <tr>
+          <tr>
             <td>Ethereum protocol version</td>
             <td>{sProtocolVersion}</td>
           </tr>
           <tr>
-            <td>Chain id <ChainId/></td>
+            <td>
+              Chain id <ChainId />
+            </td>
             <td>{sChainId}</td>
           </tr>
           <tr>
@@ -113,7 +116,7 @@ const getIsSyncing = async () => {
           </tr>
           <tr>
             <td>Network Info</td>
-            <td>{JSON.stringify(sNetworkInfo)}</td>
+            <td>{JSON.stringify(sNetworkInfo, null, 2)}</td>
           </tr>
           <tr>
             <td>Hashrate</td>
@@ -121,15 +124,15 @@ const getIsSyncing = async () => {
           </tr>
           <tr>
             <td>Syncing</td>
-            <td>{sSyncing + ""}</td>
+            <td>{JSON.stringify(sSyncing, null, 2) + ''}</td>
           </tr>
           <tr>
             <td>Mining</td>
-            <td>{sMining + ""}</td>
+            <td>{sMining + ''}</td>
           </tr>
           <tr>
             <td>Default hardfork</td>
-            <td>{JSON.stringify(sDefaultHardfork)}</td>
+            <td>{JSON.stringify(sDefaultHardfork, null, 2)}</td>
           </tr>
           <tr>
             <td>Num of pending transactions</td>

@@ -1,3 +1,9 @@
 {
-  "product_name": "Ethvis"
+  "product_name": "Ethvis",
+  "default_execution_client_http_endpoint": "http://localhost:8545",
+  "default_execution_client_websocket_endpoint": "ws://localhost:8546",
+  "default_beacon_client_http_endpoint": "http://localhost:5052",
+  "default_consensus_client_http_endpoint": "http://localhost:4000",
+  "default_refresh_client_data_interval": 5000,
+  "localstorage_darklight_theme_key": "ethvis-darklight-theme"
 }
