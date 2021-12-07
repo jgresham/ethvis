@@ -30,7 +30,7 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
       getIsMining()
       getHashrate()
       getNumOfPendingTransactions()
-    }, Constants.default_refresh_client_data_interval)
+    }, Constants.default_refresh_client_data_interval_ms)
     return () => clearInterval(interval)
   }, [])
 

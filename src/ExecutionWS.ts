@@ -28,7 +28,7 @@ class ExecutionWS {
     }
   }
 
-  isConnected = () => {
+  isConnected = async () => {
     return this.web3WebsocketProvider?.connected
   }
 

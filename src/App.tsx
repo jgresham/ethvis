@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <div className={'App'}>
-      <div className={sTheme} style={{ padding: 10, height: '100vh', width: '100vw' }}>
+      <div className={sTheme} style={{ padding: 20, height: '100vh', width: '100vw' }}>
         <Header onToggleTheme={onToggleTheme} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
         <MainContentTabs executionWS={executionWS} />

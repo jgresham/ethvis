@@ -24,7 +24,7 @@ export default function Clients(props: ClientsProps) {
     getClientInfo()
     const interval = setInterval(() => {
       getClientInfo()
-    }, Constants.default_refresh_client_data_interval)
+    }, Constants.default_refresh_client_data_interval_ms)
     return () => clearInterval(interval)
   }, [])
 

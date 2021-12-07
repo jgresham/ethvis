@@ -4,6 +4,8 @@ import Constants from './Constants.json'
 
 const HeaderDiv = styled.div`
   height: 36px;
+  display: flex;
+  align-items: center;
 `
 
 interface HeaderProps {
@@ -15,6 +17,9 @@ export default function Header(props: HeaderProps) {
     <HeaderDiv>
       <span>{Constants.product_name}</span>
       <Button minimal={true} icon={'moon'} onClick={() => props.onToggleTheme()}></Button>
+      <span style={{ marginLeft: 'auto' }}>
+        Refreshing data every {Constants.default_refresh_client_data_interval_ms / 1000}s
+      </span>
     </HeaderDiv>
   )
 }
