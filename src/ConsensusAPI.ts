@@ -26,18 +26,9 @@ class ConsensusAPI {
     return this._isConnected
   }
 
-  getNodeInfo = async () => {
-    console.log('getting consensus node info')
-    try {
-      const responseJson = await this.callFetch('/eth/v1/node/version')
-      this._isConnected = true
-      const json = responseJson
-      return json.data.version
-    } catch (e) {
-      this._isConnected = false
-    }
-  }
-
+  /*
+   * Config APIs
+   */
   getConfigSpec = async () => {
     return await this.callFetch('/eth/v1/config/spec')
   }
@@ -48,6 +39,43 @@ class ConsensusAPI {
 
   getConfigDepositContract = async () => {
     return await this.callFetch('/eth/v1/config/eth/v1/config/deposit_contract')
+  }
+
+  /*
+   * Node APIs
+   */
+  getNodeInfo = async () => {
+    try {
+      const responseJson = await this.callFetch('/eth/v1/node/version')
+      this._isConnected = true
+      const json = responseJson
+      return json.data.version
+    } catch (e) {
+      this._isConnected = false
+    }
+  }
+  getNodeIdentity = async () => {
+    return await this.callFetch('/eth/v1/node/identity')
+  }
+  getNodePeers = async () => {
+    return await this.callFetch('/eth/v1/node/peers')
+  }
+  getNodeSyncing = async () => {
+    return await this.callFetch('/eth/v1/node/syncing')
+  }
+  getNodeHealth = async () => {
+    return await this.callFetch('/eth/v1/node/health')
+  }
+
+  /*
+   * Beacon APIs
+   */
+  getGenesis = async () => {
+    return await this.callFetch('/eth/v1/beacon/genesis')
+  }
+
+  getBlock = async (blockId: string) => {
+    return await this.callFetch('/eth/v1/beacon/blocks/' + blockId)
   }
 }
 

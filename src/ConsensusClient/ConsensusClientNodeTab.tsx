@@ -1,44 +1,63 @@
 import { useEffect, useState } from 'react'
-import ChainId from '../InfoDialogs/ChainId'
 import Constants from '../Constants.json'
 import { consensusAPI } from '../App'
 import EvJson from '../CommonComponents/EvJson'
 
 export default function ConsensusClientNodeTab() {
-  const [sConfigSpec, setConfigSpec] = useState<any>(undefined)
-  const [sConfigForkSchedule, setConfigForkSchedule] = useState<any>(undefined)
-  const [sConfigDepositContract, setConfigDepositContract] = useState<any>(undefined)
+  const [sNodeVersion, setNodeVersion] = useState<string>()
+  const [sNodeIdentity, setNodeIdentity] = useState<any>(undefined)
+  const [sNodePeers, setNodePeers] = useState<any>(undefined)
+  const [sNodeSyncing, setNodeSyncing] = useState<any>(undefined)
+  const [sNodeHealth, setNodeHealth] = useState<any>(undefined)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getConfigSpec()
-      getConfigForkSchedule()
-      getConfigDepositContract()
+      getNodeVersion()
+      getNodeIdentity()
+      getNodePeers()
+      getNodeSyncing()
+      getNodeHealth()
     }, Constants.default_refresh_client_data_interval_ms)
     return () => clearInterval(interval)
   }, [])
 
-  const getConfigSpec = async () => {
+  const getNodeVersion = async () => {
     try {
-      setConfigSpec(await consensusAPI.getConfigSpec())
+      setNodeVersion(await consensusAPI.getNodeInfo())
     } catch (e: any) {
-      setConfigSpec({ error: e.toString() })
+      setNodeVersion('error: ' + e.toString())
     }
   }
 
-  const getConfigForkSchedule = async () => {
+  const getNodeIdentity = async () => {
     try {
-      setConfigForkSchedule(await consensusAPI.getConfigForkSchedule())
+      setNodeIdentity(await consensusAPI.getNodeIdentity())
     } catch (e: any) {
-      setConfigForkSchedule({ error: e.toString() })
+      setNodeIdentity({ error: e.toString() })
     }
   }
 
-  const getConfigDepositContract = async () => {
+  const getNodePeers = async () => {
     try {
-      setConfigDepositContract(await consensusAPI.getConfigDepositContract())
+      setNodePeers(await consensusAPI.getNodePeers())
     } catch (e: any) {
-      setConfigDepositContract({ error: e.toString() })
+      setNodePeers({ error: e.toString() })
+    }
+  }
+
+  const getNodeSyncing = async () => {
+    try {
+      setNodeSyncing(await consensusAPI.getNodeSyncing())
+    } catch (e: any) {
+      setNodeSyncing({ error: e.toString() })
+    }
+  }
+
+  const getNodeHealth = async () => {
+    try {
+      setNodeHealth(await consensusAPI.getNodeHealth())
+    } catch (e: any) {
+      setNodeHealth({ error: e.toString() })
     }
   }
 
@@ -53,21 +72,31 @@ export default function ConsensusClientNodeTab() {
         </thead>
         <tbody>
           <tr>
-            <td>Config spec</td>
+            <td>Node version</td>
+            <td>{sNodeVersion}</td>
+          </tr>
+          <tr>
+            <td>Head block (canonical head in node's view)</td>
             <td>
-              <EvJson src={sConfigSpec} />
+              <EvJson src={sNodeIdentity} />
             </td>
           </tr>
           <tr>
-            <td>Config fork schedule</td>
+            <td>Node peers</td>
             <td>
-              <EvJson src={sConfigForkSchedule} />
+              <EvJson src={sNodePeers} />
             </td>
           </tr>
           <tr>
-            <td>Config deposit contract</td>
+            <td>Node syncing</td>
             <td>
-              <EvJson src={sConfigDepositContract} />
+              <EvJson src={sNodeSyncing} />
+            </td>
+          </tr>
+          <tr>
+            <td>Node health</td>
+            <td>
+              <EvJson src={sNodeHealth} />
             </td>
           </tr>
         </tbody>

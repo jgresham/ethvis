@@ -1,25 +1,24 @@
-import './App.scss'
 import { useEffect, useState } from 'react'
-import * as ConsensusAPI from './ConsensusAPI'
-import { isMergeCompleted } from './isMergeCompleted'
-import ExecutionWS from './ExecutionWS'
+import * as ConsensusAPI from '../ConsensusAPI'
+import { isMergeCompleted } from '../isMergeCompleted'
+import { executionWS } from '../App'
 
-interface MergeProps {
-  executionWS: ExecutionWS
-}
+// interface MergeProps {
+//   executionWS: ExecutionWS
+// }
 
-export default function Merge(props: MergeProps) {
+export default function TheMerge() {
   // const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState<any>()
   const [sIsMergeComplete, setIsMergeComplete] = useState<boolean>()
 
   useEffect(() => {
     checkLatestBlockToSeeIfMergeIsCompleted()
-  }, [props])
+  }, [])
 
   const checkLatestBlockToSeeIfMergeIsCompleted = async () => {
     try {
-      if (props.executionWS) {
-        const latestBlock = await props.executionWS.getLatestBlock()
+      if (executionWS) {
+        const latestBlock = await executionWS.getLatestBlock()
         console.log('latest block received: ', latestBlock)
         setIsMergeComplete(isMergeCompleted(latestBlock))
       }

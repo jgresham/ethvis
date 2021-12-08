@@ -5,13 +5,9 @@ import { Tag, Intent, FormGroup, InputGroup, Dialog, Icon, Classes, Code } from 
 import { IconName } from '@blueprintjs/icons'
 import Constants from './Constants.json'
 import { executionWS, consensusAPI } from './App'
+import { detectExecutionClient, detectConsensusClient } from './utils/detectClient'
 
-interface ClientsProps {
-  executionWS: any
-  consensusAPI: any
-}
-
-export default function Clients(props: ClientsProps) {
+export default function Clients() {
   const [sIsEcConnected, setIsEcConnected] = useState<boolean>()
   const [sIsCcConnected, setIsCcConnected] = useState<boolean>()
   const [sIsEcSyncing, setIsEcSyncing] = useState<boolean>()
@@ -39,23 +35,23 @@ export default function Clients(props: ClientsProps) {
   }
 
   const checkEcConnection = async () => {
-    const isConnected = await props.executionWS.isConnected()
+    const isConnected = await executionWS.isConnected()
     console.log('Clients ec is connected: ', isConnected)
     setIsEcConnected(isConnected)
   }
   const checkCcConnection = async () => {
-    setIsCcConnected(await props.consensusAPI.isConnected())
+    setIsCcConnected(await consensusAPI.isConnected())
   }
 
   const getConsensusNodeInfo = async () => {
     console.log('appjs getConsensusNodeInfo')
-    const nodeInfo = await props.consensusAPI.getNodeInfo()
+    const nodeInfo = await consensusAPI.getNodeInfo()
     setConsensusNodeInfo(nodeInfo)
   }
 
   const getExecutionNodeInfo = async () => {
     console.log('appjs getExecutionNodeInfo')
-    const nodeInfo = await props.executionWS.getNodeInfo()
+    const nodeInfo = await executionWS.getNodeInfo()
     setNodeInfo(nodeInfo)
   }
   const onCcEndpointChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +69,7 @@ export default function Clients(props: ClientsProps) {
     <div>
       <div>
         <span>
-          <strong>Execution client:</strong> {sNodeInfo}{' '}
+          Execution: <strong>{detectExecutionClient(sNodeInfo)}</strong>{' '}
         </span>
         {!sIsEcConnected && (
           <>
@@ -83,7 +79,7 @@ export default function Clients(props: ClientsProps) {
               interactive={true}
               onClick={() => setIsOpenEcTroubleshootingOverlay(true)}
             >
-              Not connected <Icon icon={'info-sign' as IconName} />
+              <Icon icon={'info-sign' as IconName} />
             </Tag>
             <Dialog
               title={'Execution client requirements'}
@@ -93,27 +89,24 @@ export default function Clients(props: ClientsProps) {
               <div className={Classes.DIALOG_BODY}>
                 <ul>
                   <li>
-                    Enable http and websockets. <Code>--http --ws</Code>
+                    Enable the client's websocket server by passing the runtime flag{' '}
+                    <Code> --ws</Code>
                   </li>
                   <li>
-                    Ensure Ethvis can connect to execution client on localhost. If the client is running as a docker
-                    container, set the network flag to host. <Code>--network host</Code>, or in the docker compose file{' '}
+                    Ensure Ethvis can connect to execution client on localhost. If the client is
+                    running as a docker container, set the network flag to host.{' '}
+                    <Code>--network host</Code>, or in the docker compose file{' '}
                     <Code>network: host</Code>
                   </li>
                 </ul>
               </div>
             </Dialog>
-            {/* <Button
-              minimal={false}
-              icon={'info-sign' as IconName}
-              onClick={() => setIsOpenEcTroubleshootingOverlay(true)}
-            ></Button> */}
           </>
         )}
         <FormGroup
-          label="Execution Client's websocket endpoint"
+          label="websocket endpoint"
           labelFor="text-input"
-          labelInfo="(required)"
+          labelInfo="*"
           inline={true}
           style={{ display: 'inline-block' }}
         >
@@ -124,11 +117,11 @@ export default function Clients(props: ClientsProps) {
             onChange={onEcEndpointChange}
           />
         </FormGroup>
-      </div>
-      <div>
+        {/* </div>
+      <div> */}
         <span>
           {/* isSyncing:{' '} {sIsEcSyncing !== undefined && sIsEcSyncing.toString()} */}
-          <strong>Consensus client:</strong> {sConsensusNodeInfo}
+          Consensus:<strong> {detectConsensusClient(sConsensusNodeInfo)}</strong>
         </span>
         {!sIsCcConnected && (
           <>
@@ -138,7 +131,7 @@ export default function Clients(props: ClientsProps) {
               interactive={true}
               onClick={() => setIsOpenCcTroubleshootingOverlay(true)}
             >
-              Not connected <Icon icon={'info-sign' as IconName} />
+              <Icon icon={'info-sign' as IconName} />
             </Tag>
             <Dialog
               title={'Consensus client requirements'}
@@ -148,12 +141,14 @@ export default function Clients(props: ClientsProps) {
               <div className={Classes.DIALOG_BODY}>
                 <ul>
                   <li>
-                    Enable http and websockets. <Code>--http --ws</Code>
+                    Enable the consensus client's http server by passing the runtime flag{' '}
+                    <Code>--http</Code>
                   </li>
                   <li>
-                    Ensure {Constants.product_name} can connect to execution client on localhost. If the client is
-                    running as a docker container, set the network flag to host. <Code>--network host</Code>, or in the
-                    docker compose file <Code>network: host</Code>. Additionally, allow the UI to connect to the
+                    Ensure {Constants.product_name} can connect to execution client on localhost. If
+                    the client is running as a docker container, set the network flag to host.{' '}
+                    <Code>--network host</Code>, or in the docker compose file{' '}
+                    <Code>network: host</Code>. Additionally, allow the UI to connect to the
                     consensus client by tell the consensus client the http origin of the UI using{' '}
                     <Code>--http-allow-origin http://localhost:3000</Code>
                   </li>
@@ -163,9 +158,9 @@ export default function Clients(props: ClientsProps) {
           </>
         )}
         <FormGroup
-          label="Consensus Client's http endpoint"
+          label="http endpoint"
           labelFor="text-input"
-          labelInfo="(required)"
+          labelInfo="*"
           inline={true}
           style={{ display: 'inline-block' }}
         >
@@ -177,7 +172,7 @@ export default function Clients(props: ClientsProps) {
           />
         </FormGroup>
       </div>
-      {(!sIsCcConnected || !sIsEcConnected) && <ClientConnectionError />}
+      {/* {(!sIsCcConnected || !sIsEcConnected) && <ClientConnectionError />} */}
     </div>
   )
 }

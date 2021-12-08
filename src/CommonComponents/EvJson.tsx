@@ -1,10 +1,17 @@
-import { useState } from 'react'
-import { Dialog, Button, Classes, Code } from '@blueprintjs/core'
-import ReactJson from 'react-json-view'
+import { Classes } from '@blueprintjs/core'
+import ReactJson, { ReactJsonViewProps } from 'react-json-view'
 import { getThemeLocalStorage } from '../App'
 
-export default function EvJson(props: any) {
+export default function EvJson(props: ReactJsonViewProps) {
   const darkLightTheme = getThemeLocalStorage()
-  const jsonTheme = darkLightTheme === Classes.DARK ? 'monokai' : 'rjv-default'
-  return <ReactJson theme={jsonTheme} displayDataTypes={false} collapsed={true} {...props} />
+  const jsonTheme = darkLightTheme === Classes.DARK ? 'ocean' : 'rjv-default'
+  return (
+    <ReactJson
+      theme={jsonTheme}
+      indentWidth={1}
+      displayDataTypes={false}
+      collapsed={true}
+      {...props}
+    />
+  )
 }
