@@ -17,6 +17,7 @@ class ExecutionWS {
 
   connectToClientWS = async () => {
     // check if already connected
+    console.log('ExecutionWS.connectToClientWS() using endpoint: ', this.endpoint)
     try {
       this.web3WebsocketProvider = new Web3.providers.WebsocketProvider(this.endpoint)
       console.log(this.web3WebsocketProvider)
@@ -24,7 +25,7 @@ class ExecutionWS {
       console.log('latestblock', await this.web3.eth.getBlock('latest'))
       console.log('connected', this.isConnected())
     } catch (e) {
-      console.error('failed to connect')
+      console.error('failed to connect', e)
     }
   }
 

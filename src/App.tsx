@@ -12,7 +12,7 @@ const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ' '
 
 export const executionWS: ExecutionWS = new ExecutionWS(
-  Constants.default_execution_client_http_endpoint
+  Constants.default_execution_client_websocket_endpoint
 )
 export const consensusAPI: ConsensusAPI = new ConsensusAPI(
   Constants.default_consensus_client_http_endpoint

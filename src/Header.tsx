@@ -6,7 +6,7 @@ import UniButton from './CommonComponents/UniButton'
 import mainLogo from './images/ethvislogo.png'
 
 const HeaderDiv = styled.div`
-  height: 36px;
+  height: 42px;
   display: flex;
   align-items: center;
   margin-bottom: 10px;

@@ -89,8 +89,15 @@ export default function Clients() {
               <div className={Classes.DIALOG_BODY}>
                 <ul>
                   <li>
-                    Enable the client's websocket server by passing the runtime flag{' '}
-                    <Code> --ws</Code>
+                    Enable the client's websocket server by passing the runtime flag. Please refer
+                    to your execution client's documentation. Ex. For Geth pass <Code> --ws</Code>.
+                    For Netermind pass{' '}
+                    <Code>
+                      --Init.WebSocketsEnabled=true --JsonRpc.Enabled=true
+                      --JsonRpc.EnabledModules="net,eth,consensus,engine" --JsonRpc.Port=8545
+                      --JsonRpc.WebSocketsPort=8546 --JsonRpc.Host=0.0.0.0
+                    </Code>
+                    .
                   </li>
                   <li>
                     Ensure Ethvis can connect to execution client on localhost. If the client is

@@ -8,7 +8,7 @@ interface MainConentTabsProps {
 }
 
 export default function MainContentTabs(props: MainConentTabsProps) {
-  const [sActiveTab, setActiveTab] = useState<TabId>('cc')
+  const [sActiveTab, setActiveTab] = useState<TabId>('mg')
 
   return (
     <Tabs

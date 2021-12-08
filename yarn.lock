@@ -9984,6 +9984,7 @@ __metadata:
     rebass: ^4.0.7
     styled-components: ^5.3.3
     typescript: ^4.1.2
+    usehooks-ts: ^2.1.1
     wait: ^0.4.2
     web-vitals: ^1.1.2
     web3: ^1.6.1
@@ -21303,6 +21304,15 @@ __metadata:
   version: 3.1.1
   resolution: "use@npm:3.1.1"
   checksum: 08a130289f5238fcbf8f59a18951286a6e660d17acccc9d58d9b69dfa0ee19aa038e8f95721b00b432c36d1629a9e32a464bf2e7e0ae6a244c42ddb30bdd8b33
+  languageName: node
+  linkType: hard
+
+"usehooks-ts@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "usehooks-ts@npm:2.1.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: d5e87fba5171d93e88ca8d8f858f3fb560af56e6a989298fde813b837bb6f36ca966d291cd6608e65103891fc03cb9f1b56ed6cd4cf0c5187983e93e8901ebd0
   languageName: node
   linkType: hard
 
