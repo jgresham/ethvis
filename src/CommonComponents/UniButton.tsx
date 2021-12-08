@@ -1,3 +1,6 @@
+/**
+ * This is an homage to the legends over at Uniswap!
+ */
 import {
   Button as RebassButton,
   ButtonProps as ButtonPropsOriginal,
