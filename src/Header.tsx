@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 import { Button } from '@blueprintjs/core'
 import Constants from './Constants.json'
 import Clients from './Clients'
+import UniButton from './CommonComponents/UniButton'
 
 const HeaderDiv = styled.div`
   height: 36px;
@@ -25,6 +26,7 @@ export default function Header(props: HeaderProps) {
       <span style={{ marginLeft: 'auto' }}>
         Refreshing data every {Constants.default_refresh_client_data_interval_ms / 1000}s
       </span>
+      <UniButton />
     </HeaderDiv>
   )
 }
