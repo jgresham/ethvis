@@ -3,6 +3,7 @@ import { Button } from '@blueprintjs/core'
 import Constants from './Constants.json'
 import Clients from './Clients'
 import UniButton from './CommonComponents/UniButton'
+import mainLogo from './images/ethvislogo.png'
 
 const HeaderDiv = styled.div`
   height: 36px;
@@ -18,6 +19,7 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   return (
     <HeaderDiv>
+      <img src={mainLogo} style={{ height: '100%' }} alt="ethvis logo" />
       <span>{Constants.product_name}</span>
       <Button minimal={true} icon={'moon'} onClick={() => props.onToggleTheme()}></Button>
       <div style={{ marginLeft: 'auto' }}>
