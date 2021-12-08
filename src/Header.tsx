@@ -26,7 +26,9 @@ export default function Header(props: HeaderProps) {
       <span style={{ marginLeft: 'auto' }}>
         Refreshing data every {Constants.default_refresh_client_data_interval_ms / 1000}s
       </span>
-      <UniButton />
+      <div style={{ marginLeft: 'auto' }}>
+        <UniButton>Connect Clients</UniButton>
+      </div>
     </HeaderDiv>
   )
 }

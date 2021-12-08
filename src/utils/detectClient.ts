@@ -1,5 +1,3 @@
-import Constants from '../Constants.json'
-
 const execution_clients = ['Geth', 'Nethermind']
 const consensus_clients = ['Prysm', 'Lighthouse']
 
@@ -7,7 +5,7 @@ export const detectExecutionClient = (clientName: string | undefined) => {
   if (clientName === undefined) {
     return clientName
   }
-  const foundClient = execution_clients.find((currEc, i) => {
+  const foundClient = execution_clients.find((currEc) => {
     if (clientName.toLowerCase().includes(currEc.toLowerCase())) {
       return currEc
     }

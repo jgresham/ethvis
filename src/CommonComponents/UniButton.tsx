@@ -15,11 +15,11 @@ export const BaseButton = styled(RebassButton)<
     altDisabledStyle?: boolean
   } & ButtonProps
 >`
-  padding: ${({ padding }) => padding ?? '16px'};
+  padding: ${({ padding }) => padding ?? '10px'};
   width: ${({ width }) => width ?? '100%'};
   font-weight: 500;
   text-align: center;
-  border-radius: ${({ $borderRadius }) => $borderRadius ?? '20px'};
+  border-radius: ${({ $borderRadius }) => $borderRadius ?? '14px'};
   outline: none;
   border: 1px solid transparent;
   color: white;
@@ -50,7 +50,7 @@ export const ButtonPrimary = styled(BaseButton)`
   background-color: ${({ theme }) => theme.primary1};
   color: white;
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
+    // box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.primary1)};
     background-color: ${({ theme }) => darken(0.05, theme.primary1)};
   }
   &:hover {
@@ -72,6 +72,6 @@ export const ButtonPrimary = styled(BaseButton)`
   }
 `
 
-export default function UniButton() {
-  return <ButtonPrimary />
+export default function UniButton(props: any) {
+  return <ButtonPrimary {...props} />
 }
