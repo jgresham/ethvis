@@ -30,7 +30,7 @@ export default function Merge(props: MergeProps) {
 
   // const getConsensusNodeConfigSpec = async () => {
   //   console.log("appjs getConsensusNodeInfo")
-  //   const nodeInfo = await ConsensusAPI.getNodeConfigSpec()
+  //   const nodeInfo = await ConsensusAPI.getConfigSpec()
   //   setConsensusNodeConfigSpec(nodeInfo)
   // }
 

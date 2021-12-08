@@ -7,11 +7,11 @@ interface MainConentTabsProps {
 }
 
 export default function MainContentTabs(props: MainConentTabsProps) {
-  const [sActiveTab, setActiveTab] = useState<TabId>('ec')
+  const [sActiveTab, setActiveTab] = useState<TabId>('cc')
 
   return (
     <Tabs id="MainContentTabs" selectedTabId={sActiveTab} onChange={(tabId: TabId) => setActiveTab(tabId)}>
-      <Tab id="hm" title="Home" panel={<div>home</div>} />
+      <Tab id="mg" title="Merge" panel={<div>The Merge</div>} />
       <Tab id="ec" title="Execution Client" panel={<ExecutionClientTabs executionWS={props.executionWS} />} />
       <Tab id="cc" title="Consensus Client" panel={<ConsensusClientTabs />} />
     </Tabs>

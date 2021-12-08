@@ -14,8 +14,8 @@ import Constants from './Constants.json'
 const DARK_THEME = Classes.DARK
 const LIGHT_THEME = ' '
 
-export const executionWS: ExecutionWS = new ExecutionWS(Constants.default_execution_client_websocket_endpoint)
-export const consensusAPI: ConsensusAPI = new ConsensusAPI(Constants.default_beacon_client_http_endpoint)
+export const executionWS: ExecutionWS = new ExecutionWS(Constants.default_execution_client_http_endpoint)
+export const consensusAPI: ConsensusAPI = new ConsensusAPI(Constants.default_consensus_client_http_endpoint)
 
 /** Return the current theme className. */
 export function getThemeLocalStorage(): string {
@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <div className={'App'}>
-      <div className={sTheme} style={{ padding: 20, height: '100vh', width: '100vw' }}>
+      <div className={sTheme} style={{ padding: 20, minHeight: '100vh' }}>
         <Header onToggleTheme={onToggleTheme} />
         <Clients consensusAPI={consensusAPI} executionWS={executionWS} />
         <MainContentTabs executionWS={executionWS} />

@@ -171,8 +171,8 @@ export default function Clients(props: ClientsProps) {
         >
           <InputGroup
             id="text-input"
-            defaultValue={Constants.default_beacon_client_http_endpoint}
-            placeholder={Constants.default_beacon_client_http_endpoint}
+            defaultValue={Constants.default_consensus_client_http_endpoint}
+            placeholder={Constants.default_consensus_client_http_endpoint}
             onChange={onCcEndpointChange}
           />
         </FormGroup>
