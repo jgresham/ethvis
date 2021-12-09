@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Classes } from '@blueprintjs/core'
 import ExecutionWS from './ExecutionWS'
 import ConsensusAPI from './ConsensusAPI'
+import ConsensusWS from './ConsensusWS'
 import '@fontsource/open-sans'
 import Header from './Header'
 import MainContentTabs from './MainContentTabs'
@@ -15,6 +16,10 @@ export const executionWS: ExecutionWS = new ExecutionWS(
   Constants.default_execution_client_websocket_endpoint
 )
 export const consensusAPI: ConsensusAPI = new ConsensusAPI(
+  Constants.default_consensus_client_http_endpoint
+)
+
+export const consensusWS: ConsensusWS = new ConsensusWS(
   Constants.default_consensus_client_http_endpoint
 )
 

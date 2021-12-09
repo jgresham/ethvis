@@ -155,12 +155,9 @@ class ExecutionWS {
   }
 
   isMining = async () => {
-    console.log('a isMining()')
     if (this.web3?.eth) {
       try {
-        console.log('b isMining()')
         const nodeInfo = await this.web3.eth.isMining()
-        console.log('return isMining()', nodeInfo)
         return nodeInfo
       } catch (e) {
         console.error(e)

@@ -44,7 +44,6 @@ export default function Clients() {
   }
 
   const getConsensusNodeInfo = async () => {
-    console.log('appjs getConsensusNodeInfo')
     const nodeInfo = await consensusAPI.getNodeInfo()
     setConsensusNodeInfo(nodeInfo)
   }
