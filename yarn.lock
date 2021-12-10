@@ -10016,6 +10016,7 @@ __metadata:
     react-redux: ^7.2.6
     react-scripts: 4.0.3
     rebass: ^4.0.7
+    redux-localstorage-simple: ^2.4.1
     styled-components: ^5.3.3
     typescript: ^4.1.2
     usehooks-ts: ^2.1.1
@@ -14615,6 +14616,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"merge@npm:2.1.1":
+  version: 2.1.1
+  resolution: "merge@npm:2.1.1"
+  checksum: 9c36b0e25aa53b3f7305d7cf0f330397f1142cf311802b681e5619f12e986a790019b8246c1c0df21701c8652449f9046b0129551030097ef563d1958c823249
+  languageName: node
+  linkType: hard
+
 "methods@npm:~1.1.2":
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
@@ -18299,6 +18307,15 @@ __metadata:
     indent-string: ^4.0.0
     strip-indent: ^3.0.0
   checksum: fa1ef20404a2d399235e83cc80bd55a956642e37dd197b4b612ba7327bf87fa32745aeb4a1634b2bab25467164ab4ed9c15be2c307923dd08b0fe7c52431ae6b
+  languageName: node
+  linkType: hard
+
+"redux-localstorage-simple@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "redux-localstorage-simple@npm:2.4.1"
+  dependencies:
+    merge: 2.1.1
+  checksum: 5a888a644c03fdc99201f24bebf3b879b9e954ddf5763680f4eeac85ef86a8ceb4b0bf4d2c8869657563b0d149ae97a1c3593a279514a54d21483d446f73761e
   languageName: node
   linkType: hard
 
