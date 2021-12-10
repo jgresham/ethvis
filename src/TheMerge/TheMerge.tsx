@@ -35,8 +35,12 @@ export default function TheMerge() {
   }
 
   const getConsensusNodeConfigSpec = async () => {
-    const nodeInfo = await consensusAPI.getConfigSpec()
-    setConsensusNodeConfigSpec(nodeInfo)
+    try {
+      const nodeInfo = await consensusAPI.getConfigSpec()
+      setConsensusNodeConfigSpec(nodeInfo)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (

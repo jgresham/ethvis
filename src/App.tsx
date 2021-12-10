@@ -27,7 +27,7 @@ export default function App() {
     <div className={'App'}>
       <div
         className={isDarkMode ? Classes.DARK : ''}
-        style={{ padding: 20, minHeight: '100vh', width: '100%' }}
+        style={{ padding: 20, paddingTop: 0, minHeight: '100vh', width: '100%' }}
       >
         <Header />
         <MainContentTabs executionWS={executionWS} />
