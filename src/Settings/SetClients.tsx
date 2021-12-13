@@ -1,7 +1,6 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import wait from 'wait'
-import ClientConnectionError from '../ClientConnectionError'
-import { Tag, Intent, FormGroup, InputGroup, Dialog, Icon, Classes, Code } from '@blueprintjs/core'
+import { Tag, Intent, FormGroup, InputGroup, Icon } from '@blueprintjs/core'
 import { IconName } from '@blueprintjs/icons'
 import Constants from '../Constants.json'
 import { executionWS, consensusAPI } from '../App'
@@ -9,17 +8,24 @@ import { detectExecutionClient, detectConsensusClient } from '../utils/detectCli
 import ExecutionConnectionRequirements from '../InfoDialogs/ExecutionConnectionRequirements'
 import ConsensusConnectionRequirements from '../InfoDialogs/ConsensusConnectionRequirements'
 import ConnectableText from '../CommonComponents/ConnectableText'
+import {
+  updateSettingsConsensusApiEndpoint,
+  updateSettingsExecutionWsEndpoint,
+} from '../state/settings'
+import { useAppDispatch, useAppSelector } from '../state/hooks'
 
 export default function SetClients() {
+  const dispatch = useAppDispatch()
   const [sIsEcConnected, setIsEcConnected] = useState<boolean>()
   const [sIsCcConnected, setIsCcConnected] = useState<boolean>()
-  const [sIsEcSyncing, setIsEcSyncing] = useState<boolean>()
   const [sNodeInfo, setNodeInfo] = useState<string>()
   const [sConsensusNodeInfo, setConsensusNodeInfo] = useState<string>()
   const [sIsOpenEcTroubleshootingOverlay, setIsOpenEcTroubleshootingOverlay] =
     useState<boolean>(false)
   const [sIsOpenCcTroubleshootingOverlay, setIsOpenCcTroubleshootingOverlay] =
     useState<boolean>(false)
+  const rsExecutionWsEndpoint = useAppSelector((state) => state.settings.executionWs)
+  const rsConsensusApiEndpoint = useAppSelector((state) => state.settings.consensusApi)
 
   useEffect(() => {
     getClientInfo()
@@ -60,12 +66,13 @@ export default function SetClients() {
   }
   const onCcEndpointChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEndpoint = e.target.value
-    consensusAPI.changeEndpoint(newEndpoint)
+    dispatch(updateSettingsConsensusApiEndpoint(newEndpoint))
     checkCcConnection()
   }
   const onEcEndpointChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEndpoint = e.target.value
-    executionWS.changeEndpoint(newEndpoint)
+    console.log('onEcEndpointChange', newEndpoint)
+    dispatch(updateSettingsExecutionWsEndpoint(newEndpoint))
     checkEcConnection()
   }
 
@@ -99,8 +106,10 @@ export default function SetClients() {
           >
             <InputGroup
               id="text-input"
-              defaultValue={Constants.default_execution_client_websocket_endpoint}
-              placeholder={Constants.default_execution_client_websocket_endpoint}
+              defaultValue={rsExecutionWsEndpoint}
+              placeholder={rsExecutionWsEndpoint}
+              asyncControl={true}
+              value={rsExecutionWsEndpoint}
               onChange={onEcEndpointChange}
             />
           </FormGroup>
@@ -115,7 +124,6 @@ export default function SetClients() {
       </div>
       <div>
         <span>
-          {/* isSyncing:{' '} {sIsEcSyncing !== undefined && sIsEcSyncing.toString()} */}
           <h3>Consensus:</h3>
         </span>
         {!sIsCcConnected && (
@@ -144,8 +152,8 @@ export default function SetClients() {
           >
             <InputGroup
               id="text-input"
-              defaultValue={Constants.default_beacon_client_http_endpoint}
-              placeholder={Constants.default_beacon_client_http_endpoint}
+              defaultValue={rsConsensusApiEndpoint}
+              placeholder={rsConsensusApiEndpoint}
               onChange={onCcEndpointChange}
             />
           </FormGroup>
@@ -158,7 +166,6 @@ export default function SetClients() {
           )}
         </div>
       </div>
-      {/* {(!sIsCcConnected || !sIsEcConnected) && <ClientConnectionError />} */}
     </div>
   )
 }

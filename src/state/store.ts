@@ -3,9 +3,20 @@ import { setupListeners } from '@reduxjs/toolkit/query/react'
 import settingsReducer from './settings'
 import { load, save } from 'redux-localstorage-simple'
 import { RtkqConsensusApi } from './services'
+import { initialState as settingsIntialState } from './settings'
 
 const PERSISTED_KEYS: string[] = ['settings']
 
+const loadPersistedState = () => {
+  const persistedState = load({
+    states: PERSISTED_KEYS,
+    preloadedState: {
+      settings: { ...settingsIntialState },
+    },
+  })
+  console.log('Loaded application state: ', persistedState)
+  return persistedState
+}
 const store = configureStore({
   reducer: {
     settings: settingsReducer,
@@ -15,9 +26,7 @@ const store = configureStore({
     getDefaultMiddleware()
       .concat(RtkqConsensusApi.middleware)
       .concat(save({ states: PERSISTED_KEYS })),
-  preloadedState: load({
-    states: PERSISTED_KEYS,
-  }),
+  preloadedState: loadPersistedState(),
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

@@ -3,7 +3,7 @@ const consensus_clients = ['Prysm', 'Lighthouse']
 
 export const detectExecutionClient = (clientName: string | undefined) => {
   if (clientName === undefined) {
-    return clientName
+    return 'Execution client'
   }
   const foundClient = execution_clients.find((currEc) => {
     if (clientName.toLowerCase().includes(currEc.toLowerCase())) {
@@ -19,7 +19,7 @@ export const detectExecutionClient = (clientName: string | undefined) => {
 
 export const detectConsensusClient = (clientName: string | undefined) => {
   if (clientName === undefined) {
-    return clientName
+    return 'Consensus client'
   }
   const foundClient = consensus_clients.find((currEc, i) => {
     if (clientName.toLowerCase().includes(currEc.toLowerCase())) {

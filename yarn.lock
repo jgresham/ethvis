@@ -4837,7 +4837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.3":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
   checksum: ef6e1899e59b876c273811b1bd845022fc66d5a3d11cb38a25b6c566b30514ae38fe20a40f67622f362a4f4f7f9224e22d8da101cff3d6e97e11d7b4c307cfc1
@@ -10067,6 +10067,7 @@ __metadata:
     react-redux: ^7.2.6
     react-scripts: 4.0.3
     rebass: ^4.0.7
+    redux-devtools: ^3.7.0
     redux-localstorage-simple: ^2.4.1
     styled-components: ^5.3.3
     typescript: ^4.1.2
@@ -18361,6 +18362,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redux-devtools-instrument@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "redux-devtools-instrument@npm:1.10.0"
+  dependencies:
+    lodash: ^4.17.19
+    symbol-observable: ^1.2.0
+  peerDependencies:
+    redux: ^3.4.0 || ^4.0.0
+  checksum: 16836ff893070e39ee7c7d429fa2478775216765cadfdda7ac1ca8931936da99a7b9c2047632853e0ee40e5001511183e707a46d9f5c4fedb605618f343aa5d7
+  languageName: node
+  linkType: hard
+
+"redux-devtools@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "redux-devtools@npm:3.7.0"
+  dependencies:
+    "@types/prop-types": ^15.7.3
+    lodash: ^4.17.19
+    prop-types: ^15.7.2
+    redux-devtools-instrument: ^1.10.0
+  peerDependencies:
+    react: ^0.14.9 || ^15.3.0 || ^16.0.0
+    react-redux: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+    redux: ^3.5.2 || ^4.0.0
+  checksum: 321c7499d0744cb5867fd0759fcdc845bdd30cb2aac740257f29e42c9582d967097f3648025a5e55509f42157f77b0ee7a8f7f4dd341f7bcee0b9c17255fd1fb
+  languageName: node
+  linkType: hard
+
 "redux-localstorage-simple@npm:^2.4.1":
   version: 2.4.1
   resolution: "redux-localstorage-simple@npm:2.4.1"
@@ -20411,6 +20440,13 @@ __metadata:
     tar: ^4.0.2
     xhr-request: ^1.0.1
   checksum: 1de56e0cb02c1c80e041efb2bd2cc7250c5451c3016967266c16d5c1e8c74fe5c3aae45dc46065b1f4d77667a8453b967961ec58b3975469522f566aa840a914
+  languageName: node
+  linkType: hard
+
+"symbol-observable@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "symbol-observable@npm:1.2.0"
+  checksum: 48ffbc22e3d75f9853b3ff2ae94a44d84f386415110aea5effc24d84c502e03a4a6b7a8f75ebaf7b585780bda34eb5d6da3121f826a6f93398429d30032971b6
   languageName: node
   linkType: hard
 

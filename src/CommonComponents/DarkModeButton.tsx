@@ -1,9 +1,9 @@
 import { useAppSelector, useAppDispatch } from '../state/hooks'
 import { Button } from '@blueprintjs/core'
-import { toggleDarkMode } from '../state/settings'
+import { toggleDarkMode, selectIsDarkMode } from '../state/settings'
 
 export default function ChainId() {
-  const isDarkMode = useAppSelector((state) => state.settings.isDarkMode)
+  const isDarkMode = useAppSelector(selectIsDarkMode)
   const dispatch = useAppDispatch()
   return (
     <Button
