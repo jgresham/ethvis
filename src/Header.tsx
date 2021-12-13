@@ -1,9 +1,12 @@
+import { useState } from 'react'
+
 import styled from 'styled-components/macro'
 import Constants from './Constants.json'
-import Clients from './Clients'
 import UniButton from './CommonComponents/UniButton'
 import mainLogo from './images/ethvislogo.png'
 import DarkModeButton from './CommonComponents/DarkModeButton'
+import ConnectClientsDialog from './Settings/ConnectClientsDialog'
+import ClientsStatus from './ClientsStatus'
 
 const HeaderDiv = styled.div`
   height: 54px;
@@ -16,19 +19,24 @@ const HeaderDiv = styled.div`
 `
 
 export default function Header() {
+  const [sIsOpenConnectClientsDialog, setIsOpenConnectClientsDialog] = useState<boolean>(false)
   return (
     <HeaderDiv>
       <img src={mainLogo} style={{ height: '100%' }} alt="ethvis logo" />
       <span>{Constants.product_name}</span>
       <div style={{ marginLeft: 'auto' }}>
-        <Clients />
+        <ClientsStatus />
       </div>
       <span style={{ marginLeft: 'auto' }}>
         Refreshing data every {Constants.default_refresh_client_data_interval_ms / 1000}s
       </span>
       <div style={{ marginLeft: 'auto', display: 'flex' }}>
         <DarkModeButton />
-        <UniButton>Connect Clients</UniButton>
+        <UniButton onClick={() => setIsOpenConnectClientsDialog(true)}>Connect Clients</UniButton>
+        <ConnectClientsDialog
+          isOpen={sIsOpenConnectClientsDialog}
+          onClose={() => setIsOpenConnectClientsDialog(false)}
+        />
       </div>
     </HeaderDiv>
   )

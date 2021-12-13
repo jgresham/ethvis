@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../state/hooks'
 import { Button } from '@blueprintjs/core'
-import { toggle } from '../state/settings'
+import { toggleDarkMode } from '../state/settings'
 
 export default function ChainId() {
   const isDarkMode = useAppSelector((state) => state.settings.isDarkMode)
@@ -9,7 +9,7 @@ export default function ChainId() {
     <Button
       minimal={true}
       icon={isDarkMode ? 'moon' : 'lightbulb'}
-      onClick={() => dispatch(toggle())}
+      onClick={() => dispatch(toggleDarkMode())}
     ></Button>
   )
 }

@@ -23,13 +23,13 @@ export const settingsSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    toggle: (state) => {
+    toggleDarkMode: (state) => {
       state.isDarkMode = !state.isDarkMode
     },
   },
 })
 
-export const { toggle } = settingsSlice.actions
+export const { toggleDarkMode } = settingsSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectIsDarkMode = (state: RootState) => state.settings.isDarkMode
