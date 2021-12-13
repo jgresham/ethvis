@@ -6,11 +6,15 @@ import { useInterval } from 'usehooks-ts'
 import Constants from '../Constants.json'
 import { BlockHeader, Block } from 'web3-eth'
 import { numLocale } from '../utils/stringsAndNums'
+import { useGetBlockQuery } from '../state/services'
 
 export default function TheMerge() {
   const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState<any>()
   const [sLatestBlock, setLatestBlock] = useState<Block>()
   const [sIsMergeComplete, setIsMergeComplete] = useState<boolean>()
+  const { data, error, isLoading } = useGetBlockQuery('head', {
+    pollingInterval: Constants.default_refresh_client_data_interval_ms,
+  })
 
   useEffect(() => {
     checkLatestBlockToSeeIfMergeIsCompleted()
@@ -67,6 +71,12 @@ export default function TheMerge() {
         {numLocale(sConsensusNodeConfigSpec?.data?.TERMINAL_TOTAL_DIFFICULTY)}
       </p>
       Current Terminal Total Difficulty {numLocale(sLatestBlock?.totalDifficulty)}
+      <div>
+        <p>Consensus latest slot:</p>
+        {isLoading && <span>loading...</span>}
+        {data && <span>{JSON.stringify(data.slot, null, 2)}</span>}
+        {error && <span>Error + {JSON.stringify(error, null, 2)}</span>}
+      </div>
     </div>
   )
 }

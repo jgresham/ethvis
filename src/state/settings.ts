@@ -14,8 +14,8 @@ interface SettingsState {
 const initialState: SettingsState = {
   isDarkMode: false,
   executionWS: Constants.default_execution_client_websocket_endpoint,
-  consensusAPI: Constants.default_consensus_client_http_endpoint,
-  consensusWS: Constants.default_consensus_client_http_endpoint,
+  consensusAPI: Constants.default_beacon_client_http_endpoint,
+  consensusWS: Constants.default_beacon_client_http_endpoint,
 }
 
 export const settingsSlice = createSlice({
