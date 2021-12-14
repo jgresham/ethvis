@@ -106,8 +106,6 @@ export default function SetClients() {
           >
             <InputGroup
               id="text-input"
-              defaultValue={rsExecutionWsEndpoint}
-              placeholder={rsExecutionWsEndpoint}
               asyncControl={true}
               value={rsExecutionWsEndpoint}
               onChange={onEcEndpointChange}
@@ -152,8 +150,8 @@ export default function SetClients() {
           >
             <InputGroup
               id="text-input"
-              defaultValue={rsConsensusApiEndpoint}
-              placeholder={rsConsensusApiEndpoint}
+              asyncControl={true}
+              value={rsConsensusApiEndpoint}
               onChange={onCcEndpointChange}
             />
           </FormGroup>

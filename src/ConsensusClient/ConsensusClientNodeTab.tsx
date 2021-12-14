@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import Constants from '../Constants.json'
 import { consensusAPI } from '../App'
 import EvJson from '../CommonComponents/EvJson'
+import { useAppSelector } from '../state/hooks'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
 
 export default function ConsensusClientNodeTab() {
   const [sNodeVersion, setNodeVersion] = useState<string>()
@@ -9,6 +10,7 @@ export default function ConsensusClientNodeTab() {
   const [sNodePeers, setNodePeers] = useState<any>(undefined)
   const [sNodeSyncing, setNodeSyncing] = useState<any>(undefined)
   const [sNodeHealth, setNodeHealth] = useState<any>(undefined)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -17,7 +19,7 @@ export default function ConsensusClientNodeTab() {
       getNodePeers()
       getNodeSyncing()
       getNodeHealth()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

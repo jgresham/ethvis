@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
-import Constants from '../Constants.json'
 import { consensusAPI } from '../App'
 import EvJson from '../CommonComponents/EvJson'
+import { useAppSelector } from '../state/hooks'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
 
 export default function ConsensusClientConfigTab() {
   const [sConfigSpec, setConfigSpec] = useState<any>(undefined)
   const [sConfigForkSchedule, setConfigForkSchedule] = useState<any>(undefined)
   const [sConfigDepositContract, setConfigDepositContract] = useState<any>(undefined)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     const interval = setInterval(() => {
       getConfigSpec()
       getConfigForkSchedule()
       getConfigDepositContract()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

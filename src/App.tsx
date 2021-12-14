@@ -8,6 +8,7 @@ import Header from './Header'
 import MainContentTabs from './MainContentTabs'
 import Constants from './Constants.json'
 import { useAppSelector } from './state/hooks'
+import { selectIsDarkMode } from './state/settings'
 
 export const executionWS: ExecutionWS = new ExecutionWS(
   Constants.default_execution_client_websocket_endpoint
@@ -21,7 +22,7 @@ export const consensusWS: ConsensusWS = new ConsensusWS(
 )
 
 export default function App() {
-  const isDarkMode = useAppSelector((state) => state.settings.isDarkMode)
+  const isDarkMode = useAppSelector(selectIsDarkMode)
 
   return (
     <div className={'App'}>

@@ -7,6 +7,8 @@ import mainLogo from './images/ethvislogo.png'
 import DarkModeButton from './CommonComponents/DarkModeButton'
 import ConnectClientsDialog from './Settings/ConnectClientsDialog'
 import ClientsStatus from './ClientsStatus'
+import { useAppSelector } from './state/hooks'
+import { selectNumRefreshClientDataInterval } from './state/settings'
 
 const HeaderDiv = styled.div`
   height: 54px;
@@ -20,6 +22,8 @@ const HeaderDiv = styled.div`
 
 export default function Header() {
   const [sIsOpenConnectClientsDialog, setIsOpenConnectClientsDialog] = useState<boolean>(false)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
+
   return (
     <HeaderDiv>
       <img src={mainLogo} style={{ height: '100%' }} alt="ethvis logo" />
@@ -28,7 +32,7 @@ export default function Header() {
         <ClientsStatus />
       </div>
       <span style={{ marginLeft: 'auto' }}>
-        Refreshing data every {Constants.default_refresh_client_data_interval_ms / 1000}s
+        Refreshing data every {rsNumRefreshClientDataInterval / 1000}s
       </span>
       <div style={{ marginLeft: 'auto', display: 'flex' }}>
         <DarkModeButton />

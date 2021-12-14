@@ -6,6 +6,7 @@ import { executionWS, consensusAPI, consensusWS } from '../App'
 // Define a type for the slice state
 interface SettingsState {
   isDarkMode: boolean
+  numRefreshClientDataInterval: number
   executionWs: string
   consensusApi: string
   consensusWs: string
@@ -14,6 +15,7 @@ interface SettingsState {
 // Define the initial state using that type
 export const initialState: SettingsState = {
   isDarkMode: true,
+  numRefreshClientDataInterval: Constants.default_refresh_client_data_interval_ms,
   executionWs: Constants.default_execution_client_websocket_endpoint,
   consensusApi: Constants.default_beacon_client_http_endpoint,
   consensusWs: Constants.default_beacon_client_http_endpoint,
@@ -29,9 +31,8 @@ export const settingsSlice = createSlice({
     toggleDarkMode: (state) => {
       state.isDarkMode = !state.isDarkMode
     },
-    updateSettingsConsensusApiEndpoint: (state, action: PayloadAction<string>) => {
-      state.consensusApi = action.payload
-      consensusAPI.changeEndpoint(state.consensusApi)
+    updateSettingsNumRefreshClientDataInterval: (state, action: PayloadAction<number>) => {
+      state.numRefreshClientDataInterval = action.payload
     },
     updateSettingsExecutionWsEndpoint: (state, action: PayloadAction<string>) => {
       console.log('updateSettingsExecutionWsEndpoint', state, action)
@@ -41,6 +42,10 @@ export const settingsSlice = createSlice({
     updateSettingsConsensusWsEndpoint: (state, action: PayloadAction<string>) => {
       state.consensusWs = action.payload
       consensusWS.changeEndpoint(state.consensusWs)
+    },
+    updateSettingsConsensusApiEndpoint: (state, action: PayloadAction<string>) => {
+      state.consensusApi = action.payload
+      consensusAPI.changeEndpoint(state.consensusApi)
     },
     // updateSettingsConsensusApiIsConnected: (state, action: PayloadAction<boolean>) => {
     //   state.consensusAPI.isConnected = action.payload
@@ -56,6 +61,7 @@ export const settingsSlice = createSlice({
 
 export const {
   toggleDarkMode,
+  updateSettingsNumRefreshClientDataInterval,
   updateSettingsConsensusApiEndpoint,
   updateSettingsExecutionWsEndpoint,
   updateSettingsConsensusWsEndpoint,
@@ -63,5 +69,7 @@ export const {
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectIsDarkMode = (state: RootState) => state.settings.isDarkMode
+export const selectNumRefreshClientDataInterval = (state: RootState) =>
+  state.settings.numRefreshClientDataInterval
 
 export default settingsSlice.reducer

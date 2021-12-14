@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
-import Constants from '../Constants.json'
 import { consensusAPI } from '../App'
 import EvJson from '../CommonComponents/EvJson'
+import { useAppSelector } from '../state/hooks'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
 
 export default function ConsensusClientBeaconTab() {
   const [sGenesis, setGenesis] = useState<any>(undefined)
   const [sHeadBlock, setHeadBlock] = useState<any>(undefined)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     const interval = setInterval(() => {
       getGenesis()
       getHeadBlock()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

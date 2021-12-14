@@ -4,9 +4,13 @@ import settingsReducer from './settings'
 import { load, save } from 'redux-localstorage-simple'
 import { RtkqConsensusApi } from './services'
 import { initialState as settingsIntialState } from './settings'
+import { executionWS, consensusAPI, consensusWS } from '../App'
 
 const PERSISTED_KEYS: string[] = ['settings']
 
+interface appState {
+  settings: typeof settingsIntialState
+}
 const loadPersistedState = () => {
   const persistedState = load({
     states: PERSISTED_KEYS,
@@ -15,6 +19,11 @@ const loadPersistedState = () => {
     },
   })
   console.log('Loaded application state: ', persistedState)
+  // special case: set endpoints for Apis
+  const loadedAppState = persistedState as appState
+  executionWS.changeEndpoint(loadedAppState?.settings?.executionWs)
+  consensusAPI.changeEndpoint(loadedAppState?.settings?.consensusApi)
+  consensusWS.changeEndpoint(loadedAppState?.settings?.consensusWs)
   return persistedState
 }
 const store = configureStore({
