@@ -68,8 +68,8 @@ export const {
 } = settingsSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectIsDarkMode = (state: RootState) => state.settings.isDarkMode
-export const selectNumRefreshClientDataInterval = (state: RootState) =>
+export const selectIsDarkMode = (state: RootState): boolean => state.settings.isDarkMode
+export const selectNumRefreshClientDataInterval = (state: RootState): number =>
   state.settings.numRefreshClientDataInterval
 
 export default settingsSlice.reducer

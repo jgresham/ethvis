@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Dialog, Button, Classes, Code, DialogProps } from '@blueprintjs/core'
+import React from 'react'
+import { Dialog, Classes, DialogProps } from '@blueprintjs/core'
 import { useAppSelector } from '../state/hooks'
 
 interface EDialogProps extends DialogProps {

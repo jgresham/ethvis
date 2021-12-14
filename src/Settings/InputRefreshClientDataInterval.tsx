@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import wait from 'wait'
-import { Tag, Intent, FormGroup, NumericInput, Icon } from '@blueprintjs/core'
+import { FormGroup, NumericInput } from '@blueprintjs/core'
 import {
   updateSettingsNumRefreshClientDataInterval,
   selectNumRefreshClientDataInterval,

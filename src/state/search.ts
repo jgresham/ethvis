@@ -27,6 +27,6 @@ export const searchSlice = createSlice({
 export const { updateSearchText } = searchSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectSearchText = (state: RootState) => state.search.text
+export const selectSearchText = (state: RootState): string => state.search.text
 
 export default searchSlice.reducer

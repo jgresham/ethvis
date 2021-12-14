@@ -1,5 +1,5 @@
 import { Tab, Tabs, TabId } from '@blueprintjs/core'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ExecutionClientTabs from './ExecutionClient/ExecutionClientTabs'
 import ConsensusClientTabs from './ConsensusClient/ConsensusClientTabs'
 import TheMerge from './TheMerge/TheMerge'
