@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
-import * as ConsensusAPI from '../ConsensusAPI'
 import { isMergeCompleted } from '../utils/isMergeCompleted'
 import { executionWS, consensusAPI } from '../App'
 import { useInterval } from 'usehooks-ts'
-import Constants from '../Constants.json'
-import { BlockHeader, Block } from 'web3-eth'
+import { Block } from 'web3-eth'
 import { numLocale } from '../utils/stringsAndNums'
 import { useGetBlockQuery } from '../state/services'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
+import { useAppSelector } from '../state/hooks'
 
 export default function TheMerge() {
   const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState<any>()
   const [sLatestBlock, setLatestBlock] = useState<Block>()
   const [sIsMergeComplete, setIsMergeComplete] = useState<boolean>()
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
   const { data, error, isLoading } = useGetBlockQuery('head', {
-    pollingInterval: Constants.default_refresh_client_data_interval_ms,
+    pollingInterval: rsNumRefreshClientDataInterval,
   })
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function TheMerge() {
 
   useInterval(() => {
     checkLatestBlockToSeeIfMergeIsCompleted()
-  }, Constants.default_refresh_client_data_interval_ms)
+  }, rsNumRefreshClientDataInterval)
 
   const checkLatestBlockToSeeIfMergeIsCompleted = async () => {
     try {

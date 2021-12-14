@@ -8,6 +8,8 @@ import { detectExecutionClient, detectConsensusClient } from './utils/detectClie
 import ConsensusConnectionRequirements from './InfoDialogs/ConsensusConnectionRequirements'
 import ExecutionConnectionRequirements from './InfoDialogs/ExecutionConnectionRequirements'
 import ConnectableText from './CommonComponents/ConnectableText'
+import { useAppSelector } from './state/hooks'
+import { selectNumRefreshClientDataInterval } from './state/settings'
 
 export default function ClientsStatus() {
   const [sIsEcConnected, setIsEcConnected] = useState<boolean>()
@@ -19,12 +21,13 @@ export default function ClientsStatus() {
     useState<boolean>(false)
   const [sIsOpenCcTroubleshootingOverlay, setIsOpenCcTroubleshootingOverlay] =
     useState<boolean>(false)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     getClientInfo()
     const interval = setInterval(() => {
       getClientInfo()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

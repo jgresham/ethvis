@@ -27,6 +27,7 @@
     "react-json-view": "^1.21.3",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
+    "react-timer-hook": "^3.0.5",
     "rebass": "^4.0.7",
     "redux-localstorage-simple": "^2.4.1",
     "styled-components": "^5.3.3",

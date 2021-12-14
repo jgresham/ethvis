@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import ChainId from '../InfoDialogs/ChainId'
 import Constants from '../Constants.json'
+import { useAppSelector } from '../state/hooks'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
 
 interface ClientsProps {
   executionWS: any
@@ -17,6 +19,7 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
   const [sMining, setMining] = useState<boolean>()
   const [sDefaultHardfork, setDefaultHardfork] = useState<string>()
   const [sNumOfPendingTransactions, setNumOfPendingTransactions] = useState<number>()
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     getProtocolVersion()
@@ -30,7 +33,7 @@ export default function ExecutionClientNodeTab(props: ClientsProps) {
       getIsMining()
       getHashrate()
       getNumOfPendingTransactions()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

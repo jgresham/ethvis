@@ -9,6 +9,7 @@ import ExecutionConnectionRequirements from '../InfoDialogs/ExecutionConnectionR
 import ConsensusConnectionRequirements from '../InfoDialogs/ConsensusConnectionRequirements'
 import ConnectableText from '../CommonComponents/ConnectableText'
 import {
+  selectNumRefreshClientDataInterval,
   updateSettingsConsensusApiEndpoint,
   updateSettingsExecutionWsEndpoint,
 } from '../state/settings'
@@ -26,12 +27,13 @@ export default function SetClients() {
     useState<boolean>(false)
   const rsExecutionWsEndpoint = useAppSelector((state) => state.settings.executionWs)
   const rsConsensusApiEndpoint = useAppSelector((state) => state.settings.consensusApi)
+  const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
 
   useEffect(() => {
     getClientInfo()
     const interval = setInterval(() => {
       getClientInfo()
-    }, Constants.default_refresh_client_data_interval_ms)
+    }, rsNumRefreshClientDataInterval)
     return () => clearInterval(interval)
   }, [])
 

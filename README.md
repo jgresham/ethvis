@@ -39,6 +39,12 @@ ex. for Lighthouse
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Acronyms.
+Variable prefixes:
+
+- s "state variable from useState"
+- rs "redux state variable from a redux store"
+
 ## Available Scripts
 
 In the project directory, you can run:

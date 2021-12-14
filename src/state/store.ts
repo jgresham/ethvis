@@ -1,21 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
 import settingsReducer from './settings'
+import searchReducer from './search'
 import { load, save } from 'redux-localstorage-simple'
 import { RtkqConsensusApi } from './services'
-import { initialState as settingsIntialState } from './settings'
+import { initialState as settingsInitialState } from './settings'
+import { initialState as searchInitialState } from './search'
 import { executionWS, consensusAPI, consensusWS } from '../App'
 
-const PERSISTED_KEYS: string[] = ['settings']
+const PERSISTED_KEYS: string[] = ['settings', 'search']
 
 interface appState {
-  settings: typeof settingsIntialState
+  settings: typeof settingsInitialState
+  search: typeof searchInitialState
 }
 const loadPersistedState = () => {
   const persistedState = load({
     states: PERSISTED_KEYS,
     preloadedState: {
-      settings: { ...settingsIntialState },
+      settings: { ...settingsInitialState },
+      search: { ...searchInitialState },
     },
   })
   console.log('Loaded application state: ', persistedState)
@@ -29,6 +33,7 @@ const loadPersistedState = () => {
 const store = configureStore({
   reducer: {
     settings: settingsReducer,
+    search: searchReducer,
     [RtkqConsensusApi.reducerPath]: RtkqConsensusApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

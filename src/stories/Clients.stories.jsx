@@ -4,16 +4,16 @@ import ConnectableText from '../CommonComponents/ConnectableText'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Clients',
+  title: 'Ethvis/Clients',
   component: ConnectableText,
 }
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template = (args) => <ConnectableText {...args} />
 
-export const Primary = Template.bind({})
+export const ConnectableTextExample = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
+ConnectableTextExample.args = {
   text: 'Lighthouse',
   isConnected: 'true',
   ec: 'Geth/v1.10.12-unstable-893c3721-20211123/linux-amd64/go1.17.3',

@@ -10066,6 +10066,7 @@ __metadata:
     react-json-view: ^1.21.3
     react-redux: ^7.2.6
     react-scripts: 4.0.3
+    react-timer-hook: ^3.0.5
     rebass: ^4.0.7
     redux-devtools: ^3.7.0
     redux-localstorage-simple: ^2.4.1
@@ -18237,6 +18238,16 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: da3d0192825df3d9f27eef33e7eddf928359a7e3e2b01ae7f7f672ecf4e5c1f7a34f27bdde9ccc24e2e9fbe1d1b9dd2a39c7d47323c9bdf63e7b9bd05c325a71
+  languageName: node
+  linkType: hard
+
+"react-timer-hook@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "react-timer-hook@npm:3.0.5"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 4464f10c21df41ae0c97ebadcc52bffcef9177f3d298b5726f041f509c05f985898cafdea766f9cc0f4d64a7a0c711e9c78256fba5992ee8826d8efd18f363ed
   languageName: node
   linkType: hard
 
