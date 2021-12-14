@@ -12,6 +12,29 @@ Ranked by priority (ranking is pre-feedback from client devs/testers):
 4. Deploy the UI to IPFS so that users do not need to run the UI locally
 5. Create a block viewer using something like [React diagrams](https://github.com/projectstorm/react-diagrams)
 
+## Connecting an Ethereum client
+
+### Run Ethvis locally
+
+1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node.js](https://nodejs.org/en/download/), & [yarn](https://yarnpkg.com/getting-started/install)
+2. Clone this repo `git clone git@github.com:jgresham/ethvis.git`
+3. In the repo, run `yarn` to install dependencies
+4. Run `yarn start` to start the UI locally at http://localhost:3000
+
+### Use Ethvis on IPFS
+
+**December 14th, v1**: ipfs://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4/
+
+1. Allow Ethvis from IPFS to connect to your client by setting the "http-allow-origin" runtime flag for your client to a value: "http://" + the IPFS hash + "\<your ipfs gateway\>"
+
+ex. for Lighthouse
+
+```
+--http-allow-origin http://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4.ipfs.localhost:8080/
+```
+
+2. Disable browser shields for this IPFS URL, such as on Brave (Brave blocks Ethvis on IPFS from making an http to localhost)
+
 # Contributing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
