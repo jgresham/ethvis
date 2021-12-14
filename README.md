@@ -1,4 +1,18 @@
-# Getting Started with Create React App
+# Ethvis
+
+This project serves as a UI to Ethereum clients. It serves as a devtool for client developers and testnet testers. Also, it serves node operators who want to see the status of a client and the chain it operators on.
+
+## Future work
+
+Ranked by priority (ranking is pre-feedback from client devs/testers):
+
+1. Add Merge specific UI elements (is the chain pre or post merge, when is/did it happen?)
+2. Documentation for running the UI and client requirements
+3. Allow the UI to connect to non-local host endpoints (requires auth support)
+4. Deploy the UI to IPFS so that users do not need to run the UI locally
+5. Create a block viewer using something like [React diagrams](https://github.com/projectstorm/react-diagrams)
+
+# Contributing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
