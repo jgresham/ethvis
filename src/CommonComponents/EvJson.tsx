@@ -11,6 +11,7 @@ export default function EvJson(props: ReactJsonViewProps) {
       indentWidth={1}
       displayDataTypes={false}
       collapsed={true}
+      name={null}
       {...props}
     />
   )
