@@ -23,6 +23,27 @@ class ExecutionWS {
       this.web3WebsocketProvider = new Web3.providers.WebsocketProvider(this.endpoint)
       console.log(this.web3WebsocketProvider)
       this.web3 = new Web3(this.web3WebsocketProvider)
+      this.web3.eth.subscribe('logs', { fromBlock: 'latest' }, function(error, result){
+        if (!error) {
+            console.log("subr logs", result);
+            return;
+        }
+        console.error("subr logs", error);
+      })
+      this.web3.eth.subscribe('newBlockHeaders', function(error, result){
+        if (!error) {
+            console.log("subr newBlockHeaders", result);
+            return;
+        }
+        console.error("subr newBlockHeaders", error);
+      })
+      this.web3.eth.subscribe('syncing', function(error, result){
+        if (!error) {
+            console.log("subr syncing", result);
+            return;
+        }
+        console.error("subr syncing", error);
+    })
       console.log('latestblock', await this.web3.eth.getBlock('latest'))
       console.log('connected', this.isConnected())
     } catch (e) {

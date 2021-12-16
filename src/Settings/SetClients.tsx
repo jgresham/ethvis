@@ -61,7 +61,6 @@ export default function SetClients() {
   }
 
   const getExecutionNodeInfo = async () => {
-    console.log('appjs getExecutionNodeInfo')
     const nodeInfo = await executionWS.getNodeInfo()
     setNodeInfo(nodeInfo)
   }

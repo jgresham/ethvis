@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
 import styled from 'styled-components/macro'
-import Constants from './Constants.json'
-import UniButton from './CommonComponents/UniButton'
-import mainLogo from './images/ethvislogo.png'
-import DarkModeButton from './CommonComponents/DarkModeButton'
-import ConnectClientsDialog from './Settings/ConnectClientsDialog'
-import ClientsStatus from './ClientsStatus'
-import { useAppSelector } from './state/hooks'
-import { selectNumRefreshClientDataInterval } from './state/settings'
+import Constants from '../Constants.json'
+import UniButton from '../CommonComponents/UniButton'
+import mainLogo from '../images/ethvislogo.png'
+import DarkModeButton from '../CommonComponents/DarkModeButton'
+import ConnectClientsDialog from '../Settings/ConnectClientsDialog'
+import ClientsStatus from './ClientsStatuses'
+import { useAppSelector } from '../state/hooks'
+import { selectNumRefreshClientDataInterval } from '../state/settings'
 
 const HeaderDiv = styled.div`
   height: 54px;
