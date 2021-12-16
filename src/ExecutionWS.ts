@@ -1,4 +1,5 @@
 import Web3 from 'web3'
+import { Block } from 'web3-eth'
 
 class ExecutionWS {
   endpoint: string

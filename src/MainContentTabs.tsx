@@ -4,12 +4,13 @@ import ExecutionClientTabs from './ExecutionClient/ExecutionClientTabs'
 import ConsensusClientTabs from './ConsensusClient/ConsensusClientTabs'
 import TheMerge from './TheMerge/TheMerge'
 import Search from './Seach'
+import Dashboard from './Dashboard/Dashboard'
 interface MainConentTabsProps {
   executionWS: any
 }
 
 export default function MainContentTabs(props: MainConentTabsProps) {
-  const [sActiveTab, setActiveTab] = useState<TabId>('se')
+  const [sActiveTab, setActiveTab] = useState<TabId>('db')
 
   return (
     <Tabs
@@ -17,6 +18,7 @@ export default function MainContentTabs(props: MainConentTabsProps) {
       selectedTabId={sActiveTab}
       onChange={(tabId: TabId) => setActiveTab(tabId)}
     >
+      <Tab id="db" title="Dashboard" panel={<Dashboard />} />
       <Tab id="mg" title="Merge" panel={<TheMerge />} />
       <Tab
         id="ec"

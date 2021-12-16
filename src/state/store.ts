@@ -3,7 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query/react'
 import settingsReducer from './settings'
 import searchReducer from './search'
 import { load, save } from 'redux-localstorage-simple'
-import { RtkqConsensusApi } from './services'
+import { RtkqConsensusApi, RtkqExecutionWs } from './services'
 import { initialState as settingsInitialState } from './settings'
 import { initialState as searchInitialState } from './search'
 import { executionWS, consensusAPI, consensusWS } from '../App'
@@ -35,10 +35,12 @@ const store = configureStore({
     settings: settingsReducer,
     search: searchReducer,
     [RtkqConsensusApi.reducerPath]: RtkqConsensusApi.reducer,
+    [RtkqExecutionWs.reducerPath]: RtkqExecutionWs.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(RtkqConsensusApi.middleware)
+      .concat(RtkqExecutionWs.middleware)
       .concat(save({ states: PERSISTED_KEYS })),
   preloadedState: loadPersistedState(),
 })
