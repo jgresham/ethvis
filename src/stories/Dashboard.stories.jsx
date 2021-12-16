@@ -1,0 +1,22 @@
+import React from 'react'
+
+import CDashboardPresentational from '../Dashboard/DashboardPresentational'
+
+// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+export default {
+  title: 'Ethvis/Dashboard',
+  component: CDashboardPresentational,
+}
+
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+const Template = (args) => <CDashboardPresentational {...args} />
+
+export const Countdown = Template.bind({})
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Countdown.args = {
+  chainId: 13777702,
+  currBlockNum: 4507,
+  currSlotNum: 230,
+  currentTotalTerminalDifficulty: 23120000,
+  mergeTotalTerminalDifficulty: 50000000000,
+}

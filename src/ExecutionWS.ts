@@ -23,27 +23,27 @@ class ExecutionWS {
       this.web3WebsocketProvider = new Web3.providers.WebsocketProvider(this.endpoint)
       console.log(this.web3WebsocketProvider)
       this.web3 = new Web3(this.web3WebsocketProvider)
-      this.web3.eth.subscribe('logs', { fromBlock: 'latest' }, function(error, result){
+      this.web3.eth.subscribe('logs', { fromBlock: 'latest' }, function (error, result) {
         if (!error) {
-            console.log("subr logs", result);
-            return;
+          console.log('subr logs', result)
+          return
         }
-        console.error("subr logs", error);
+        console.error('subr logs', error)
       })
-      this.web3.eth.subscribe('newBlockHeaders', function(error, result){
+      this.web3.eth.subscribe('newBlockHeaders', function (error, result) {
         if (!error) {
-            console.log("subr newBlockHeaders", result);
-            return;
+          console.log('subr newBlockHeaders', result)
+          return
         }
-        console.error("subr newBlockHeaders", error);
+        console.error('subr newBlockHeaders', error)
       })
-      this.web3.eth.subscribe('syncing', function(error, result){
+      this.web3.eth.subscribe('syncing', function (error, result) {
         if (!error) {
-            console.log("subr syncing", result);
-            return;
+          console.log('subr syncing', result)
+          return
         }
-        console.error("subr syncing", error);
-    })
+        console.error('subr syncing', error)
+      })
       console.log('latestblock', await this.web3.eth.getBlock('latest'))
       console.log('connected', this.isConnected())
     } catch (e) {
@@ -59,7 +59,9 @@ class ExecutionWS {
     console.log('ExecutionWS isSyncing()')
     if (this.web3?.eth) {
       try {
-        return await this.web3.eth.isSyncing()
+        const sync = await this.web3.eth.isSyncing()
+        console.log('ExecutionWS isSyncing() result', sync)
+        return sync
       } catch (e) {
         console.error(e)
       }

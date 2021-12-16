@@ -17,8 +17,8 @@ export const initialState: SettingsState = {
   isDarkMode: true,
   numRefreshClientDataInterval: Constants.default_refresh_client_data_interval_ms,
   executionWs: Constants.default_execution_client_websocket_endpoint,
-  consensusApi: Constants.default_beacon_client_http_endpoint,
-  consensusWs: Constants.default_beacon_client_http_endpoint,
+  consensusApi: Constants.default_consensus_client_http_endpoint,
+  consensusWs: Constants.default_consensus_client_http_endpoint,
 }
 
 console.log('Intial settings state: ', initialState)

@@ -5,7 +5,12 @@ import { executionWS, consensusAPI } from '../App'
 import { detectExecutionClient, detectConsensusClient } from '../utils/detectClient'
 import { useAppSelector } from '../state/hooks'
 import { selectNumRefreshClientDataInterval } from '../state/settings'
-import { useGetIsSyncingQuery, useGetExecutionIsSyncingQuery } from '../state/services'
+import {
+  useGetIsSyncingQuery,
+  useGetNetworkInfoQuery,
+  useGetExecutionIsSyncingQuery,
+  useGetExecutionNetworkInfoQuery,
+} from '../state/services'
 import ClientStatusInline from '../CommonComponents/ClientStatusInline'
 
 export default function ClientsStatuses() {
@@ -18,6 +23,12 @@ export default function ClientsStatuses() {
     pollingInterval: rsNumRefreshClientDataInterval,
   })
   const qConsensusIsSyncing = useGetIsSyncingQuery(null, {
+    pollingInterval: rsNumRefreshClientDataInterval,
+  })
+  const qExecutionNetworkInfo = useGetExecutionNetworkInfoQuery(null, {
+    pollingInterval: rsNumRefreshClientDataInterval,
+  })
+  const qNetworkInfo = useGetNetworkInfoQuery(null, {
     pollingInterval: rsNumRefreshClientDataInterval,
   })
   useEffect(() => {
@@ -69,6 +80,7 @@ export default function ClientsStatuses() {
         clientVersion={sNodeInfo}
         isConnected={sIsEcConnected}
         isSyncing={qExeuctionIsSyncing.data}
+        peers={qExecutionNetworkInfo.data}
         type={'execution'}
       />
       &ensp;
@@ -79,6 +91,7 @@ export default function ClientsStatuses() {
         clientVersion={sConsensusNodeInfo}
         isConnected={sIsCcConnected}
         isSyncing={qConsensusIsSyncing.data}
+        peers={qNetworkInfo.data}
         type={'consensus'}
       />
     </div>
