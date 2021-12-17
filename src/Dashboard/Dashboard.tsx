@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react'
-import { isMergeCompleted } from '../utils/isMergeCompleted'
-import { consensusAPI } from '../App'
-import { Block } from 'web3-eth'
 import {
+  useGetConfigSpecQuery,
   useGetBlockQuery,
   useGetExecutionBlockQuery,
   useGetExecutionChainIdQuery,
+  useGetExecutionBlockHeadersQuery,
+  useGetBlockEventsQuery,
 } from '../state/services'
 import { selectNumRefreshClientDataInterval } from '../state/settings'
 import { useAppSelector } from '../state/hooks'
 import DashboardPresentational from './DashboardPresentational'
 
 export default function Dashboard() {
-  const [sConsensusNodeConfigSpec, setConsensusNodeConfigSpec] = useState<any>()
-  const [sLatestBlock, setLatestBlock] = useState<Block>()
   const rsNumRefreshClientDataInterval = useAppSelector(selectNumRefreshClientDataInterval)
   const { data, error, isLoading } = useGetBlockQuery('head', {
     pollingInterval: rsNumRefreshClientDataInterval,
@@ -24,19 +21,11 @@ export default function Dashboard() {
   const qGetExecutionChainIdQuery = useGetExecutionChainIdQuery(null, {
     pollingInterval: rsNumRefreshClientDataInterval,
   })
-
-  useEffect(() => {
-    getConsensusNodeConfigSpec()
-  }, [])
-
-  const getConsensusNodeConfigSpec = async () => {
-    try {
-      const nodeInfo = await consensusAPI.getConfigSpec()
-      setConsensusNodeConfigSpec(nodeInfo)
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  const qGetConfigSpecQuery = useGetConfigSpecQuery(null, {
+    pollingInterval: rsNumRefreshClientDataInterval,
+  })
+  const qGetExecutionBlockHeadersQuery = useGetExecutionBlockHeadersQuery(null)
+  const qGetBlockEventsQuery = useGetBlockEventsQuery(null)
 
   return (
     <div>
@@ -45,7 +34,11 @@ export default function Dashboard() {
         currBlockNum={qExecutionBlockQuery?.data?.number}
         currSlotNum={data?.slot}
         currentTotalTerminalDifficulty={qExecutionBlockQuery?.data?.totalDifficulty}
-        mergeTotalTerminalDifficulty={sConsensusNodeConfigSpec?.data?.TERMINAL_TOTAL_DIFFICULTY}
+        mergeTotalTerminalDifficulty={qGetConfigSpecQuery?.data?.TERMINAL_TOTAL_DIFFICULTY}
+        blockHeaders={
+          qGetExecutionBlockHeadersQuery?.data ? qGetExecutionBlockHeadersQuery.data : []
+        }
+        blockEvents={qGetBlockEventsQuery?.data ? qGetBlockEventsQuery.data : []}
       />
     </div>
   )

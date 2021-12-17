@@ -1,5 +1,6 @@
 import Web3 from 'web3'
-import { Block } from 'web3-eth'
+import { BlockHeader } from 'web3-eth'
+import { Subscription } from 'web3-core-subscriptions'
 
 class ExecutionWS {
   endpoint: string
@@ -23,31 +24,42 @@ class ExecutionWS {
       this.web3WebsocketProvider = new Web3.providers.WebsocketProvider(this.endpoint)
       console.log(this.web3WebsocketProvider)
       this.web3 = new Web3(this.web3WebsocketProvider)
-      this.web3.eth.subscribe('logs', { fromBlock: 'latest' }, function (error, result) {
-        if (!error) {
-          console.log('subr logs', result)
-          return
-        }
-        console.error('subr logs', error)
-      })
-      this.web3.eth.subscribe('newBlockHeaders', function (error, result) {
-        if (!error) {
-          console.log('subr newBlockHeaders', result)
-          return
-        }
-        console.error('subr newBlockHeaders', error)
-      })
-      this.web3.eth.subscribe('syncing', function (error, result) {
-        if (!error) {
-          console.log('subr syncing', result)
-          return
-        }
-        console.error('subr syncing', error)
-      })
+      // this.web3.eth.subscribe('logs', { fromBlock: 'latest' }, function (error, result) {
+      //   if (!error) {
+      //     console.log('subr logs', result)
+      //     return
+      //   }
+      //   console.error('subr logs', error)
+      // })
+      // this.web3.eth.subscribe('newBlockHeaders', function (error, result) {
+      //   if (!error) {
+      //     console.log('subr newBlockHeaders', result)
+      //     return
+      //   }
+      //   console.error('subr newBlockHeaders', error)
+      // })
+      // this.web3.eth.subscribe('syncing', function (error, result) {
+      //   if (!error) {
+      //     console.log('subr syncing', result)
+      //     return
+      //   }
+      //   console.error('subr syncing', error)
+      // })
       console.log('latestblock', await this.web3.eth.getBlock('latest'))
       console.log('connected', this.isConnected())
     } catch (e) {
       console.error('failed to connect', e)
+    }
+  }
+
+  subscribeToBlockHeaders = (
+    listener: (error: any, result: any) => void
+  ): Subscription<BlockHeader> | undefined => {
+    console.log('subscribeToBlockHeaders start', listener)
+    if (this.web3?.eth) {
+      return this.web3.eth.subscribe('newBlockHeaders', listener)
+    } else {
+      console.error('subscribeToBlockHeaders failed. no web3.eth')
     }
   }
 
@@ -69,10 +81,12 @@ class ExecutionWS {
     return false
   }
 
-  getLatestBlock = async () => {
+  getLatestBlock = async () => this.getBlock('latest')
+
+  getBlock = async (blockId: string) => {
     if (this.web3?.eth) {
       try {
-        return await this.web3.eth.getBlock('latest')
+        return await this.web3.eth.getBlock(blockId)
       } catch (e) {
         console.error(e)
       }

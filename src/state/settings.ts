@@ -40,11 +40,12 @@ export const settingsSlice = createSlice({
       executionWS.changeEndpoint(state.executionWs)
     },
     updateSettingsConsensusWsEndpoint: (state, action: PayloadAction<string>) => {
-      state.consensusWs = action.payload
-      consensusWS.changeEndpoint(state.consensusWs)
+      // state.consensusWs = action.payload
+      // consensusWS.changeEndpoint(state.consensusWs)
     },
     updateSettingsConsensusApiEndpoint: (state, action: PayloadAction<string>) => {
       state.consensusApi = action.payload
+      consensusWS.changeEndpoint(state.consensusApi)
       consensusAPI.changeEndpoint(state.consensusApi)
     },
     // updateSettingsConsensusApiIsConnected: (state, action: PayloadAction<boolean>) => {

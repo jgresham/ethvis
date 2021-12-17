@@ -27,7 +27,7 @@ const loadPersistedState = () => {
   const loadedAppState = persistedState as appState
   executionWS.changeEndpoint(loadedAppState?.settings?.executionWs)
   consensusAPI.changeEndpoint(loadedAppState?.settings?.consensusApi)
-  consensusWS.changeEndpoint(loadedAppState?.settings?.consensusWs)
+  consensusWS.changeEndpoint(loadedAppState?.settings?.consensusApi)
   return persistedState
 }
 const store = configureStore({

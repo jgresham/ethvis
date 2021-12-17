@@ -1959,6 +1959,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@blueprintjs/table@npm:^3.9.13":
+  version: 3.9.13
+  resolution: "@blueprintjs/table@npm:3.9.13"
+  dependencies:
+    "@blueprintjs/core": ^3.52.0
+    classnames: ^2.2
+    prop-types: ^15.7.2
+    react-lifecycles-compat: ^3.0.4
+    tslib: ~1.13.0
+  peerDependencies:
+    react: ^15.3.0 || 16 || 17
+    react-dom: ^15.3.0 || 16 || 17
+  checksum: b1a24fdac5a51cb9acba0a9346b3d8dc2deeeb954871655572986c15988e3e9768807a9c2ab0b7c323185a3ecd19e673d7ff90f2b8acd52472fc0a70bc17ac00
+  languageName: node
+  linkType: hard
+
 "@cnakazawa/watch@npm:^1.0.3":
   version: 1.0.4
   resolution: "@cnakazawa/watch@npm:1.0.4"
@@ -10036,6 +10052,7 @@ __metadata:
     "@blueprintjs/docs-theme": ^3.10.18
     "@blueprintjs/icons": ^3.31.0
     "@blueprintjs/popover2": ^0.12.9
+    "@blueprintjs/table": ^3.9.13
     "@fontsource/open-sans": ^4.5.2
     "@reduxjs/toolkit": ^1.6.2
     "@storybook/addon-actions": ^6.4.4

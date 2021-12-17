@@ -19,7 +19,7 @@ export default function MainContentTabs(props: MainConentTabsProps) {
       onChange={(tabId: TabId) => setActiveTab(tabId)}
     >
       <Tab id="db" title="Dashboard" panel={<Dashboard />} />
-      <Tab id="mg" title="Merge" panel={<TheMerge />} />
+      {/* <Tab id="mg" title="Merge" panel={<TheMerge />} /> */}
       <Tab
         id="ec"
         title="Execution Client"
