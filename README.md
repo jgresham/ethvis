@@ -20,11 +20,15 @@ Ranked by priority (ranking is pre-feedback from client devs/testers):
 ## Connecting an Ethereum client
 
 ### Run Ethvis locally
+*Requires enabling the http and websocket servers on your ethereum clients
 
 1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node.js](https://nodejs.org/en/download/), & [yarn](https://yarnpkg.com/getting-started/install)
 2. Clone this repo `git clone git@github.com:jgresham/ethvis.git`
 3. In the repo, run `yarn` to install dependencies
 4. Run `yarn start` to start the UI locally at http://localhost:3000
+6. Ensure the clients' http and websocket RPC servers are enabled. Refer to client specific documentation (ex. geth [rpc server docs] (https://geth.ethereum.org/docs/rpc/server)
+7. Allow the UI to connect to the client's by allowing http://localhost:3000. (ex. lighthouse `--http-allow-origin=http://localhost:3000` [beacon api docs](https://lighthouse-book.sigmaprime.io/api-bn.html))
+8. If the client's use non-standard ports for its RPC servers, set them by using the "Connect Clients" settings in the top right of the Ethvis UI.
 
 ### Use Ethvis on IPFS
 
