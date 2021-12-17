@@ -3,6 +3,7 @@
 This project serves as a UI to Ethereum clients. It serves as a devtool for client developers and testnet testers. Also, it serves node operators who want to see the status of a client and the chain it operators on.
 
 Version 1.0 (December 16, 2021)
+
 https://user-images.githubusercontent.com/3721291/146483899-859dcb0e-a032-44b1-bdd1-450ed946896f.mp4
 
 
