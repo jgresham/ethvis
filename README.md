@@ -2,6 +2,10 @@
 
 This project serves as a UI to Ethereum clients. It serves as a devtool for client developers and testnet testers. Also, it serves node operators who want to see the status of a client and the chain it operators on.
 
+Version 1.0 (December 16, 2021)
+https://user-images.githubusercontent.com/3721291/146483899-859dcb0e-a032-44b1-bdd1-450ed946896f.mp4
+
+
 ## Future work
 
 Ranked by priority (ranking is pre-feedback from client devs/testers):
@@ -23,7 +27,7 @@ Ranked by priority (ranking is pre-feedback from client devs/testers):
 
 ### Use Ethvis on IPFS
 
-**December 14th, v1**: ipfs://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4/
+**December 14th, v0.1**: ipfs://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4/
 
 1. Allow Ethvis from IPFS to connect to your client by setting the "http-allow-origin" runtime flag for your client to a value: "http://" + the IPFS hash + "\<your ipfs gateway\>"
 
