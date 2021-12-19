@@ -1,4 +1,4 @@
-# Ethvis
+# EthVis
 
 This project serves as a UI to Ethereum clients. It serves as a devtool for client developers and testnet testers. Also, it serves node operators who want to see the status of a client and the chain it operators on.
 
@@ -6,6 +6,23 @@ Version 1.0 (December 16, 2021)
 
 https://user-images.githubusercontent.com/3721291/146483899-859dcb0e-a032-44b1-bdd1-450ed946896f.mp4
 
+## Using EthVis on ethvis.xyz
+
+1. Allow EthVis from https://ethvis.xyz to connect to your client by setting the "http-allow-origin" runtime flag for your client to value: "https://ethvis.xyz"
+
+ex. for Geth
+
+```
+--ws.origins https://ethvis.xyz
+```
+
+ex. for Lighthouse
+
+```
+--http-allow-origin https://ethvis.xyz
+```
+
+2. Disable browser shields for this URL, such as on Brave (Brave blocks EthVis from making connections to localhost)
 
 ## Future work
 
@@ -17,32 +34,17 @@ Ranked by priority (ranking is pre-feedback from client devs/testers):
 4. Deploy the UI to IPFS so that users do not need to run the UI locally
 5. Create a block viewer using something like [React diagrams](https://github.com/projectstorm/react-diagrams)
 
-## Connecting an Ethereum client
+## Run EthVis locally
 
-### Run Ethvis locally
-*Requires enabling the http and websocket servers on your ethereum clients
+\*Requires enabling the http and websocket servers on your ethereum clients
 
 1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node.js](https://nodejs.org/en/download/), & [yarn](https://yarnpkg.com/getting-started/install)
 2. Clone this repo `git clone git@github.com:jgresham/ethvis.git`
 3. In the repo, run `yarn` to install dependencies
 4. Run `yarn start` to start the UI locally at http://localhost:3000
-6. Ensure the clients' http and websocket RPC servers are enabled. Refer to client specific documentation (ex. geth [rpc server docs] (https://geth.ethereum.org/docs/rpc/server)
-7. Allow the UI to connect to the client's by allowing http://localhost:3000. (ex. lighthouse `--http-allow-origin=http://localhost:3000` [beacon api docs](https://lighthouse-book.sigmaprime.io/api-bn.html))
-8. If the client's use non-standard ports for its RPC servers, set them by using the "Connect Clients" settings in the top right of the Ethvis UI.
-
-### Use Ethvis on IPFS
-
-**December 14th, v0.1**: ipfs://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4/
-
-1. Allow Ethvis from IPFS to connect to your client by setting the "http-allow-origin" runtime flag for your client to a value: "http://" + the IPFS hash + "\<your ipfs gateway\>"
-
-ex. for Lighthouse
-
-```
---http-allow-origin http://bafybeibc2x4pwlcxwobk6jscbvr3pwkn4wtoklm2nw33ry4dxtsfz6qpd4.ipfs.localhost:8080/
-```
-
-2. Disable browser shields for this IPFS URL, such as on Brave (Brave blocks Ethvis on IPFS from making an http to localhost)
+5. Ensure the clients' http and websocket RPC servers are enabled. Refer to client specific documentation (ex. geth [rpc server docs] (https://geth.ethereum.org/docs/rpc/server)
+6. Allow the UI to connect to the client's by allowing http://localhost:3000. (ex. lighthouse `--http-allow-origin=http://localhost:3000` [beacon api docs](https://lighthouse-book.sigmaprime.io/api-bn.html))
+7. If the client's use non-standard ports for its RPC servers, set them by using the "Connect Clients" settings in the top right of the EthVis UI.
 
 # Contributing
 

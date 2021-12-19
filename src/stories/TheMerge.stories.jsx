@@ -4,7 +4,7 @@ import CCountdown from '../TheMerge/Countdown'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Ethvis/TheMerge',
+  title: 'EthVis/TheMerge',
   component: CCountdown,
 }
 

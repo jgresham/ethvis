@@ -1,13 +1,52 @@
-import { createApi, fetchBaseQuery, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  createApi,
+  fetchBaseQuery,
+  fakeBaseQuery,
+  FetchArgs,
+  BaseQueryFn,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react'
 import Constants from '../Constants.json'
 import { consensusWS, executionWS } from '../App'
 import { BlockHeader } from 'web3-eth'
 import { BlockEvent } from '../ConsensusWS'
+import { selectConsensusApiEndpoint } from './settings'
+import { RootState } from './store'
+
+const consensusApiFetchBaseQuery = fetchBaseQuery({
+  baseUrl: Constants.default_consensus_client_http_endpoint,
+})
+
+const dynamicConsensusApiBaseQuery: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const consensusApiEndpoint = selectConsensusApiEndpoint(api.getState() as RootState)
+  // gracefully handle scenarios where data to generate the URL is missing
+  if (!consensusApiEndpoint) {
+    return {
+      error: {
+        status: 400,
+        statusText: 'Bad Request',
+        data: 'No Consensus Api Endpoint set',
+      },
+    }
+  }
+
+  console.log('Calling consensus Api with base url: ', consensusApiEndpoint)
+  const urlEnd = typeof args === 'string' ? args : args.url
+  // // construct a dynamically generated portion of the url
+  const adjustedUrl = consensusApiEndpoint + urlEnd
+  const adjustedArgs = typeof args === 'string' ? adjustedUrl : { ...args, url: adjustedUrl }
+  // // provide the amended url and other params to the raw base query
+  return consensusApiFetchBaseQuery(adjustedArgs, api, extraOptions)
+}
 
 // Define a service using a base URL and expected endpoints
 export const RtkqConsensusApi = createApi({
   reducerPath: 'RtkqConsensusApi',
-  baseQuery: fetchBaseQuery({ baseUrl: Constants.default_consensus_client_http_endpoint }),
+  baseQuery: dynamicConsensusApiBaseQuery,
   endpoints: (builder) => ({
     getConfigSpec: builder.query<any, null>({
       query: () => `/eth/v1/config/spec`,

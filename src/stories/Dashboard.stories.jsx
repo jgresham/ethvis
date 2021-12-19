@@ -5,7 +5,7 @@ import CDashboardPresentational from '../Dashboard/DashboardPresentational'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Ethvis/Dashboard',
+  title: 'EthVis/Dashboard',
   component: CDashboardPresentational,
 }
 

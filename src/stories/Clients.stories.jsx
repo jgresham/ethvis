@@ -4,7 +4,7 @@ import ConnectableText from '../CommonComponents/ConnectableText'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Ethvis/Clients',
+  title: 'EthVis/Clients',
   component: ConnectableText,
 }
 

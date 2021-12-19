@@ -19,7 +19,7 @@ export default function ConsensusClientTabs() {
       <Tab id="hm" title="Config" panel={<ConsensusClientConfigTab />} />
       <Tab id="bc" title="Beacon" panel={<ConsensusClientBeaconTab />} />
       <Tab id="nd" title="Node" panel={<ConsensusClientNodeTab />} />
-      <Tab id="ev" title="Events" panel={<div>Requires implementation from Ethvis</div>} />
+      <Tab id="ev" title="Events" panel={<div>Requires implementation from EthVis</div>} />
     </Tabs>
   )
 }

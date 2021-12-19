@@ -2,6 +2,7 @@ import { Icon, Intent, Tag, Spinner, SpinnerSize } from '@blueprintjs/core'
 import { IconName } from '@blueprintjs/icons'
 import { Tooltip2, Classes, Popover2, Popover2InteractionKind } from '@blueprintjs/popover2'
 import { useEffect, useState } from 'react'
+import ConsensusConnectionRequirements from '../InfoDialogs/ConsensusConnectionRequirements'
 import ExecutionConnectionRequirements from '../InfoDialogs/ExecutionConnectionRequirements'
 import ConnectableText from './ConnectableText'
 import EvJson from './EvJson'
@@ -56,7 +57,7 @@ export default function ClientStatusInline({
         setPeers(peers.peerCount)
         setIsListeningForPeers(peers.isListeningForPeers)
       } else if (type === 'consensus' && Array.isArray(peers)) {
-        console.log('consensus isSyncing', isSyncing)
+        console.log('consensus peers', isSyncing)
         setPeers(peers.length)
         setIsListeningForPeers(false)
       }
@@ -111,7 +112,7 @@ export default function ClientStatusInline({
               onClose={() => setIsOpenOverlay(false)}
             />
           ) : (
-            <ExecutionConnectionRequirements
+            <ConsensusConnectionRequirements
               isOpen={sIsOpenOverlay}
               onClose={() => setIsOpenOverlay(false)}
             />

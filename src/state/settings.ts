@@ -72,5 +72,6 @@ export const {
 export const selectIsDarkMode = (state: RootState): boolean => state.settings.isDarkMode
 export const selectNumRefreshClientDataInterval = (state: RootState): number =>
   state.settings.numRefreshClientDataInterval
+export const selectConsensusApiEndpoint = (state: RootState): string => state.settings.consensusApi
 
 export default settingsSlice.reducer
