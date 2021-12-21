@@ -9,6 +9,7 @@ import MainContentTabs from './MainContentTabs'
 import Constants from './Constants.json'
 import { useAppSelector } from './state/hooks'
 import { selectIsDarkMode } from './state/settings'
+import Footer from './Header/Footer'
 
 export const executionWS: ExecutionWS = new ExecutionWS(
   Constants.default_execution_client_websocket_endpoint
@@ -28,10 +29,21 @@ export default function App() {
     <div className={'App'}>
       <div
         className={isDarkMode ? Classes.DARK : ''}
-        style={{ padding: 20, paddingTop: 0, minHeight: '100vh', width: '100%' }}
+        style={{
+          padding: 20,
+          paddingTop: 0,
+          paddingBottom: 0,
+          minHeight: '100vh',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
         <Header />
-        <MainContentTabs executionWS={executionWS} />
+        <div style={{ flexGrow: 1 }}>
+          <MainContentTabs executionWS={executionWS} />
+        </div>
+        <Footer />
       </div>
     </div>
   )
