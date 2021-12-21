@@ -1,5 +1,5 @@
 import './App.scss'
-import { Classes } from '@blueprintjs/core'
+import { Classes, HotkeysProvider } from '@blueprintjs/core'
 import ExecutionWS from './ExecutionWS'
 import ConsensusAPI from './ConsensusAPI'
 import ConsensusWS from './ConsensusWS'
@@ -39,11 +39,15 @@ export default function App() {
           flexDirection: 'column',
         }}
       >
-        <Header />
-        <div style={{ flexGrow: 1 }}>
-          <MainContentTabs executionWS={executionWS} />
-        </div>
-        <Footer />
+        <HotkeysProvider>
+          <>
+            <Header />
+            <div style={{ flexGrow: 1 }}>
+              <MainContentTabs executionWS={executionWS} />
+            </div>
+            <Footer />
+          </>
+        </HotkeysProvider>
       </div>
     </div>
   )

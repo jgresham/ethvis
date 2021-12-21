@@ -1,11 +1,20 @@
 import { numLocale } from '../utils/stringsAndNums'
-import { Cell, Column, Table2 } from '@blueprintjs/table'
-import { HotkeysProvider } from '@blueprintjs/core'
+import {
+  Cell,
+  Column,
+  CopyCellsMenuItem,
+  IMenuContext,
+  SelectionModes,
+  Table2,
+} from '@blueprintjs/table'
+import { HotkeysProvider, Menu } from '@blueprintjs/core'
 import { BlockHeader } from 'web3-eth'
 import { BlockEvent } from '../ConsensusWS'
 import { useEffect } from 'react'
 import EvJson from '../CommonComponents/EvJson'
 import { Popover2, Popover2InteractionKind } from '@blueprintjs/popover2'
+import ETable from '../CommonComponents/ETable'
+import { PROPERTIES } from '@blueprintjs/icons/lib/esm/generated/iconNames'
 
 interface DashboardPresentationalProps {
   chainId: number
@@ -65,6 +74,30 @@ export default function DashboardPresentational({
     chainIdLabel = chainId
   }
 
+  const getCellClipboardDataBlockHeaders = (rowIndex: number, columnIndex: number) => {
+    const blockHeader = blockHeaders[rowIndex]
+    if (columnIndex === 0) {
+      return blockHeader.number
+    } else if (columnIndex === 1) {
+      return blockHeader.timestamp
+    } else {
+      return JSON.stringify(blockHeader)
+    }
+    return null
+  }
+
+  const getCellClipboardDataBlockEvents = (rowIndex: number, columnIndex: number) => {
+    const blockEvent = blockEvents[rowIndex]
+    if (columnIndex === 0) {
+      return blockEvent.slot
+    } else if (columnIndex === 1) {
+      return blockEvent.block
+    } else {
+      return JSON.stringify(blockEvent)
+    }
+    return null
+  }
+
   return (
     <div>
       <div
@@ -80,45 +113,45 @@ export default function DashboardPresentational({
       <div style={{ display: 'flex', height: 300 }}>
         <div style={{ flex: 1 }}>
           <h3 style={{ marginTop: 4, marginBottom: 4 }}>Execution Block Headers</h3>
-          <HotkeysProvider>
-            <Table2 numRows={Array.isArray(blockHeaders) ? blockHeaders.length : 0}>
-              <Column
-                name="Number"
-                cellRenderer={(rowIndex: number) => blockNumberCellRenderer(blockHeaders[rowIndex])}
-              />
-              <Column
-                name="Time"
-                cellRenderer={(rowIndex: number) => blockTimeCellRenderer(blockHeaders[rowIndex])}
-              />
-              <Column
-                name="JSON"
-                cellRenderer={(rowIndex: number) => jsonCellRenderer(blockHeaders[rowIndex])}
-              />
-            </Table2>
-          </HotkeysProvider>
+          <Table2
+            numRows={Array.isArray(blockHeaders) ? blockHeaders.length : 0}
+            getCellClipboardData={getCellClipboardDataBlockHeaders}
+          >
+            <Column
+              name="Number"
+              cellRenderer={(rowIndex: number) => blockNumberCellRenderer(blockHeaders[rowIndex])}
+            />
+            <Column
+              name="Time"
+              cellRenderer={(rowIndex: number) => blockTimeCellRenderer(blockHeaders[rowIndex])}
+            />
+            <Column
+              name="JSON"
+              cellRenderer={(rowIndex: number) => jsonCellRenderer(blockHeaders[rowIndex])}
+            />
+          </Table2>
         </div>
         <div style={{ flex: 1 }}>
           <h3 style={{ marginTop: 4, marginBottom: 4 }}>Consensus Block Events</h3>
-          <HotkeysProvider>
-            <Table2 numRows={Array.isArray(blockHeaders) ? blockHeaders.length : 0}>
-              <Column
-                name="Slot"
-                cellRenderer={(rowIndex: number) =>
-                  blockEventSlotCellRenderer(blockEvents[rowIndex])
-                }
-              />
-              <Column
-                name="Block hash"
-                cellRenderer={(rowIndex: number) =>
-                  blockEventBlockHashCellRenderer(blockEvents[rowIndex])
-                }
-              />
-              <Column
-                name="JSON"
-                cellRenderer={(rowIndex: number) => jsonCellRenderer(blockEvents[rowIndex])}
-              />
-            </Table2>
-          </HotkeysProvider>
+          <Table2
+            numRows={Array.isArray(blockHeaders) ? blockHeaders.length : 0}
+            getCellClipboardData={getCellClipboardDataBlockEvents}
+          >
+            <Column
+              name="Slot"
+              cellRenderer={(rowIndex: number) => blockEventSlotCellRenderer(blockEvents[rowIndex])}
+            />
+            <Column
+              name="Block hash"
+              cellRenderer={(rowIndex: number) =>
+                blockEventBlockHashCellRenderer(blockEvents[rowIndex])
+              }
+            />
+            <Column
+              name="JSON"
+              cellRenderer={(rowIndex: number) => jsonCellRenderer(blockEvents[rowIndex])}
+            />
+          </Table2>
         </div>
       </div>
     </div>
