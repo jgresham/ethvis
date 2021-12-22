@@ -1,20 +1,10 @@
 import { numLocale } from '../utils/stringsAndNums'
-import {
-  Cell,
-  Column,
-  CopyCellsMenuItem,
-  IMenuContext,
-  SelectionModes,
-  Table2,
-} from '@blueprintjs/table'
-import { HotkeysProvider, Menu } from '@blueprintjs/core'
+import { Cell, Column, Table2 } from '@blueprintjs/table'
 import { BlockHeader } from 'web3-eth'
 import { BlockEvent } from '../ConsensusWS'
 import { useEffect } from 'react'
 import EvJson from '../CommonComponents/EvJson'
 import { Popover2, Popover2InteractionKind } from '@blueprintjs/popover2'
-import ETable from '../CommonComponents/ETable'
-import { PROPERTIES } from '@blueprintjs/icons/lib/esm/generated/iconNames'
 
 interface DashboardPresentationalProps {
   chainId: number
@@ -30,6 +20,9 @@ const blockEventSlotCellRenderer = (blockEvent: BlockEvent) => <Cell>{blockEvent
 const blockEventBlockHashCellRenderer = (blockEvent: BlockEvent) => <Cell>{blockEvent?.block}</Cell>
 
 const blockNumberCellRenderer = (blockHeader: BlockHeader) => <Cell>{blockHeader?.number}</Cell>
+const blockTransactionsCellRenderer = (blockHeader: BlockHeader) => (
+  <Cell>{blockHeader?.transactionRoot}</Cell>
+)
 const blockTimeCellRenderer = (blockHeader: BlockHeader) => <Cell>{blockHeader?.timestamp}</Cell>
 const jsonCellRenderer = (jsonObj: any) => (
   <Cell>
@@ -134,7 +127,7 @@ export default function DashboardPresentational({
         <div style={{ flex: 1 }}>
           <h3 style={{ marginTop: 4, marginBottom: 4 }}>Consensus Block Events</h3>
           <Table2
-            numRows={Array.isArray(blockHeaders) ? blockHeaders.length : 0}
+            numRows={Array.isArray(blockEvents) ? blockEvents.length : 0}
             getCellClipboardData={getCellClipboardDataBlockEvents}
           >
             <Column

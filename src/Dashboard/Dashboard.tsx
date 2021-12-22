@@ -8,6 +8,7 @@ import {
 } from '../state/services'
 import { selectNumRefreshClientDataInterval } from '../state/settings'
 import { useAppSelector } from '../state/hooks'
+import { selectGetEvents } from '../state/notableEvents'
 import DashboardPresentational from './DashboardPresentational'
 
 export default function Dashboard() {
@@ -26,7 +27,9 @@ export default function Dashboard() {
   })
   const qGetExecutionBlockHeadersQuery = useGetExecutionBlockHeadersQuery(null)
   const qGetBlockEventsQuery = useGetBlockEventsQuery(null)
+  const rsNotableEvents = useAppSelector(selectGetEvents)
 
+  console.log('rsNotableEvents', rsNotableEvents)
   return (
     <div>
       <DashboardPresentational

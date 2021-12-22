@@ -1,5 +1,5 @@
-const execution_clients = ['Geth', 'Nethermind']
-const consensus_clients = ['Prysm', 'Lighthouse']
+const execution_clients = ['Geth', 'Nethermind', 'Besu']
+const consensus_clients = ['Prysm', 'Lighthouse', 'Teku', 'Lodestar', 'Nimbus']
 
 export const detectExecutionClient = (clientName: string | undefined) => {
   if (clientName === undefined) {

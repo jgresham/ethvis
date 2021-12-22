@@ -16,8 +16,9 @@ export default function ConsensusConnectionRequirements(props: DialogProps) {
           Enable the consensus client's http server by passing the runtime flag <Code>--http</Code>
         </li>
         <li>
-          Enable {Constants.product_name} to connect to the execution client by telling the client
-          the origin <Code>https://ethvis.xyz</Code> is allowed to connect. Ex. For Geth pass{' '}
+          {Constants.product_name}
+          Enable to connect to the execution client by telling the client the origin{' '}
+          <Code>https://ethvis.xyz</Code> is allowed to connect. Ex. For Geth pass{' '}
           <Code>--http-allow-origin https://ethvis.xyz</Code>, or if you also want to run EthVis
           locally <Code>--http-allow-origin https://ethvis.xyz,http://localhost:3000</Code>
         </li>
